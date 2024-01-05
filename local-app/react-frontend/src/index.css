@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+
+@layer base {
+    html {
+      @apply font-mono;
+    }
+  }
+  
+.btn {
+    @apply px-4 py-2 rounded-md;
+}
+
+.btn-green {
+    @apply bg-green-500 text-white;
+}
+
+.product-listing {
+  @apply border-solid border-4 border-cyan-600 rounded-lg
+}
+
+.product-listing:hover {
+  @apply border-cyan-400
+}
+
+@tailwind utilities;

@@ -28,12 +28,31 @@ Fork and then clone the repository locally so you can make alterations along the
 
 
 ## Working with material ##
+
+### Mysql server container ###
 Run containers
 ` docker-compose up -d`
 
 Stop containers
 ` docker ps `
 ` docker stop $containerName`
+
+### Backend ### 
+`cd local-app\express-backend`
+`node express.js`
+
+### Frontend ###
+`cd local-app\react-frontend`
+`npm start`
+
+## Making alterations in the webapp ##
+If you do decide to make alterations to the weball you need to rebuild the image. This can be done by going to the respective directory and building via
+`docker build -t <image-name>:tag .`
+Then adjust the docker-compose.yml file to reflect the new image. Rerun the compose file to reflect the changes.
+
+As the database is basically the image with no other local files you need to run this as a docker container during development anyhow. Run the following command:
+
+`docker-compose -f docker-compose-dev-mysql-only.yml up`
 
 # Notes #
 
