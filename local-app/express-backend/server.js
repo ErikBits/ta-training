@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
+const bcrypt = require('bcrypt');
+
 const app = express();
 const port = 3002;
 
@@ -22,6 +24,52 @@ db.getConnection((err, connection) => {
     } else {
         console.log('Connected to database');
         connection.release();
+    }
+});
+
+// app.use('/login', (req, res) => {
+//     res.send({
+//         token: 'test12'
+//     });
+// });
+
+const findUserByUsername = async (username) => {
+    return new Promise((resolve, reject) => {
+        db.query('SELECT * FROM Users WHERE username = ?', [username], (err, results) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(results[0]);
+            }
+        });
+    });
+};
+
+app.post('/api/user-login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const user = await findUserByUsername(username);
+
+        if(!user) {
+            return res.status(401).json({ error: 'User does not exist' });
+        }
+
+        // const passwordMatch = await bcrypt.compare(password, user.password); //doesnt work without password encryption. need to hash in db for this to work.
+        const passwordMatch = await (password === user.password);
+
+        if (!passwordMatch) {
+            return res.status(401).json({ error: 'Password does not match' });
+        }
+
+        // DUMMY TOKEN - dont think there is a need to replace this with jwt in this app
+        const token = 'token12';
+
+        res.json({ token });
+        
+    } catch (error) {
+        console.error('Login failed:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 

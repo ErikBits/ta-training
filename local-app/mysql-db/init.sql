@@ -10,8 +10,9 @@ CREATE TABLE IF NOT EXISTS `Products` (
 
 CREATE TABLE IF NOT EXISTS `Users` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `username` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255) NOT NULL
+  `username` VARCHAR(255) NOT NULL UNIQUE,
+  `password` VARCHAR(255) NOT NULL,
+  `is_admin` INT NOT NULL DEFAULT 0
 );
 
 -- Insert test data
@@ -25,4 +26,8 @@ INSERT INTO `Products` (`name`, `amount_in_stock`) VALUES
   ('Workbench', 1),
   ('Screwdriver', 1),
   ('Measuring Tape', 50);
+
+  INSERT INTO `Users` (`username`, `password`, `is_admin`) VALUES
+    ('admin', 'admin', 1),
+    ('John Doe', 'password');
 

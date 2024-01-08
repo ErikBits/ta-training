@@ -35,7 +35,7 @@ Run containers
 
 Stop containers
 ` docker ps `
-` docker stop $containerName`
+` docker stop <containerName>`
 
 ### Backend ### 
 `cd local-app\express-backend`

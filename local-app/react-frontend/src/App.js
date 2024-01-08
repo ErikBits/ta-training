@@ -5,9 +5,12 @@ import Layout from './Views/Layouts/Layout';
 import HomePage from './Views/HomePage';
 import AboutPage from './Views/AboutPage';
 import ProductsPage from './Views/ProductsPage';
+import ProfilePage from './Views/ProfilePage';
+import LoginPage from './Views/Auth/Login';
 
 
 function App() {
+
   return (
     <Router>
       <Layout>
@@ -16,6 +19,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Layout>
     </Router>
