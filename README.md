@@ -73,6 +73,11 @@ SELECT user, host FROM user;`
 Check if mysql is running
 ``` service mysql status ```
 
+After update to the mysql database run in the same directory while the contianer is still running:
+`docker-compose down -v`
+Then run: 
+`docker-compose -f ./docker-file/ up --build`
+
 ## Container ##
 Find container IP:
 

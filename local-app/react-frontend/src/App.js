@@ -8,19 +8,21 @@ import ProductsPage from './Views/ProductsPage';
 import ProfilePage from './Views/ProfilePage';
 import LoginPage from './Views/Auth/Login';
 
+import useToken from './hooks/useToken';
 
 function App() {
+  const { token, setToken } = useToken(); /* eslint-disable-line */
 
   return (
     <Router>
       <Layout>
         <Routes>
-          {/* ugly code, damn */}
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/products" element={<ProductsPage />} />
+          {/* <ProtectedRoute path="/profile" component={<ProfilePage />} /> */}
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage setToken={setToken} />} />
         </Routes>
       </Layout>
     </Router>

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-
-// LOGIN STUB FOR NOW
+import useToken from "../../hooks/useToken";
 
 async function loginUser(credentials) {
 
@@ -32,14 +31,14 @@ async function loginUser(credentials) {
     }
 }
 
-const LoginPage = ({ setToken }) => {
-// const LoginPage = () => {
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+
+const LoginPage = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { token, setToken } = useToken(); /* eslint-disable-line */
 
     const navigate = useNavigate();
-
-    // const { token, setToken } = useToken();
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -52,20 +51,22 @@ const LoginPage = ({ setToken }) => {
 
             setToken(token);
 
-            // navigate('/profile');
+
+            //TODO: replace with actual token instead of dummy token
+            if (token === 'token12') {
+
+                navigate('/profile');
+
+            }
+
 
         } catch (error) {
             //provide user feedback
             console.error('Login error', error.message);
             return; //early exit if login fails
         }
-    };
 
-    useEffect(() => {
-        if (setToken && setToken !== undefined) {
-            navigate("/profile");
-        }
-    }, [setToken, navigate]);
+    };
 
     return(
         <div className="login-wrapper">
