@@ -9,12 +9,12 @@ const AddProductForm = ({ onProductAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const addedProduct = await addProduct({
+        const productId = await addProduct({
             productName: productName,
             amount_in_stock: productQuantity
         });
 
-        onProductAdded();
+        onProductAdded(productId);
 
         setProductName('');
         setProductQuantity(0);
