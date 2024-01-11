@@ -44,9 +44,9 @@ const ProductsPage = () => {
             <h2>Product list</h2>
             <ul>
                 {products.map((product) => (
-                    <li class="product-listing p-2 mx-2 my-3" key={product.id}>
-                        <b>{product.name}</b>
-                        <div>Stock: {product.amount_in_stock}</div>
+                    <li class="product-listing p-2 mx-2 my-3" key={product.id} id={`product-${product.id}`}>
+                        <b id={`product-${product.id}-name`}>{product.name}</b>
+                        <div id={`product-${product.id}-quantity`}>Stock: {product.amount_in_stock}</div>
                     </li>
                 ))}
             </ul>

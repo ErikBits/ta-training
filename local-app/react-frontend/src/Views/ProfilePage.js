@@ -109,6 +109,7 @@ const ProfilePage = () => {
                         value={userDetails.gender}
                         name="gender"
                         onChange={handleInputChange}
+                        id="user-details-gender"
                     >
                         <option value="1">Female</option>
                         <option value="2">Male</option>
@@ -124,6 +125,7 @@ const ProfilePage = () => {
                         name="address"
                         value={userDetails.address}
                         onChange={handleInputChange}
+                        id="user-details-address"
                     />
                 </label>
                 <br />
@@ -134,6 +136,7 @@ const ProfilePage = () => {
                         value={userDetails.country}
                         name="country"
                         onChange={handleInputChange}
+                        id="user-details-country"
                     >
                         <option value="1">The Netherlands</option>
                         <option value="2">Belgium</option>
@@ -149,11 +152,12 @@ const ProfilePage = () => {
                         name="postal_code"
                         value={userDetails.postal_code}
                         onChange={handleInputChange}
+                        id="user-details-postal-code"
                     />
                 </label>
                 <br />
 
-                <button type="button" onClick={handleSave}>Save</button>
+                <button type="button" onClick={handleSave} id="user-details-submit">Save</button>
             </form>
 
         </div>

@@ -29,6 +29,7 @@ const AddProductForm = ({ onProductAdded }) => {
                     name="productName"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
+                    id="product-name-input"
                 />
             </label>
             <br />
@@ -40,11 +41,12 @@ const AddProductForm = ({ onProductAdded }) => {
                     name="amount_in_stock"
                     value={productQuantity}
                     onChange={(e) => setProductQuantity(e.target.value)}
+                    id="product-quantity-input"
                 />
             </label>
             <br />
 
-            <button type="submit" class="btn btn-green">Add Product</button>
+            <button type="submit" class="btn btn-green" id="add-product-submit">Add Product</button>
         </form>
     );
 };

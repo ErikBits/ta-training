@@ -76,15 +76,15 @@ const LoginPage = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={e => setUsername(e.target.value)} />
+                    <input type="text" onChange={e => setUsername(e.target.value)} id="username-input"/>
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
+                    <input type="password" onChange={e => setPassword(e.target.value)} id="password-input"/>
                 </label>
 
                 <div>
-                    <button className="btn btn-green" type="submit">Submit</button>
+                    <button className="btn btn-green" type="submit" id="login-submit">Submit</button>
                 </div>
             </form>
         </div>
