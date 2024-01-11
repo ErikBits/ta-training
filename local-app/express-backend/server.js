@@ -50,7 +50,7 @@ app.post('/api/user-login', async (req, res) => {
             return res.status(401).json({ error: 'User does not exist' });
         }
 
-        // const passwordMatch = await bcrypt.compare(password, user.password); //doesnt work without password encryption. need to hash in db for this to work.
+        // not hashing passwords since security is irrelevant for this
         const passwordMatch = await (password === user.password);
 
         if (!passwordMatch) {

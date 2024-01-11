@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../helpers/helpers";
+import { getProducts } from "../helpers/backendHelpers";
 
 const HomePage = () => {
 

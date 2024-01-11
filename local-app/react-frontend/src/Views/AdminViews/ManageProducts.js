@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { addProduct } from "../../helpers/helpers";
+import { addProduct } from "../../helpers/backendHelpers";
 
 const AddProductForm = ({ onProductAdded }) => {
 

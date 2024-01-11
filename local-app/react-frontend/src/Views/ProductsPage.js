@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddProductForm from "./AdminViews/ManageProducts";
-import { getProducts, getUser } from "../helpers/helpers.js";
+import { getProducts, getUser } from "../helpers/backendHelpers.js";
 
 
 const ProductsPage = () => {

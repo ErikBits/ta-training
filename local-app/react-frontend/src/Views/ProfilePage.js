@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useToken from "../hooks/useToken";
 import { Navigate } from "react-router-dom";
-import { getUserDetails, updateUserDetails } from "../helpers/helpers";
+import { getUserDetails, updateUserDetails } from "../helpers/backendHelpers";
 import { validateUserDetails } from "../helpers/validationHelpers";
 
-
-//TODO: empty requests still work at API level. need to display this properly.
 
 const ProfilePage = () => {
 
@@ -82,10 +80,6 @@ const ProfilePage = () => {
                 await updateUserDetails(user_id, userDetails);
 
             }
-            
-            // Optionally, you can refetch the details after saving.
-            // const refetchedUserDetails = await getUserDetails(user_id);
-            // setUserDetails(refetchedUserDetails);
 
         } catch (error) {
             console.error("Error updating user details:", error);
@@ -102,7 +96,6 @@ const ProfilePage = () => {
             
 
             <form>
-                {/* Not displaying the correct option, value does seem to be correct in db */}
                 <label>
                     Gender:
                     <select 
