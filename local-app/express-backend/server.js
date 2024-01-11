@@ -2,7 +2,8 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
-const bcrypt = require('bcrypt');
+// import { validateUserDetails } from './helpers/validationHelpers.js';
+const { validateUserDetails } = require('./helpers/validationHelpers.js');
 
 const app = express();
 const port = 3002;
@@ -126,6 +127,13 @@ app.put('/api/users/details/:id', (req, res) => {
 
     const user_id = req.params.id;
     const { gender, address, country, postal_code } = req.body;
+
+    console.log('rq boyd', req.body);
+
+    const userDetailValidation = validateUserDetails(user_id, req.body);
+    if (!userDetailValidation['status']) {
+        return res.status(400).json({ error: userDetailValidation['error_message']});
+    };
 
     const query = `
         INSERT INTO UserDetails (user_id, gender, address, country, postal_code)

@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import useToken from "../hooks/useToken";
 import { Navigate } from "react-router-dom";
 import { getUserDetails, updateUserDetails } from "../helpers/helpers";
+import { validateUserDetails } from "../helpers/validationHelpers";
 
+
+//TODO: empty requests still work at API level. need to display this properly.
 
 const ProfilePage = () => {
 
@@ -50,6 +53,7 @@ const ProfilePage = () => {
     const handleSave = async () => {
 
         try {
+
             const user_id = localStorage.getItem('user_id');
 
             const fetchedUserDetails = await getUserDetails(user_id);
@@ -61,11 +65,20 @@ const ProfilePage = () => {
                 //TODO: figure out what this notation is and how it works
                 const updatedDetails = { ...existingDetails, ...userDetails };
 
+                if (!validateUserDetails(updatedDetails)) {
+                    return; //stop execution if validation fails
+                }
+
                 await updateUserDetails(user_id, updatedDetails);
 
             } else {
                 //create new entry
                 const user_id = localStorage.getItem('user_id');
+
+                if (!validateUserDetails(userDetails)) {
+                    return; //stop execution if validation fails
+                }
+
                 await updateUserDetails(user_id, userDetails);
 
             }
