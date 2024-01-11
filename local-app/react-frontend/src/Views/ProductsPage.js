@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from "react";
 import AddProductForm from "./AdminViews/ManageProducts";
-import { getProducts } from "../helpers/helpers.js";
+import { getProducts, getUser } from "../helpers/helpers.js";
 
 
 const ProductsPage = () => {
     // What is usestate?
     const [products, setProducts] = useState([]);
 
-    
+    var is_admin = 0, user_id;
+
+    if ((user_id = localStorage.getItem('user_id')) !== null) {
+        const fetchAdminStatus = async (user_id) => {
+            const userDetails = await getUser(user_id);
+            return userDetails[0].is_admin;
+        }
+
+        is_admin = fetchAdminStatus(user_id);
+
+    };
+
+
     useEffect(() => {
         const fetchData = async () => {
             const fetchedProducts = await getProducts();
@@ -39,7 +51,7 @@ const ProductsPage = () => {
                 ))}
             </ul>
 
-            <AddProductForm onProductAdded={handeProductAdded} />
+            { is_admin && <AddProductForm onProductAdded={handeProductAdded} />}
         </div>
     );
 };

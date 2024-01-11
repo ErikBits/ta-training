@@ -1,27 +1,23 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { addProduct } from "../../helpers/helpers";
 
 const AddProductForm = ({ onProductAdded }) => {
 
-    // idk what this does either
     const [productName, setProductName] = useState('');
+    const [productQuantity, setProductQuantity] = useState(0);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await axios.post('http://localhost:3002/api/products/add-product', {
-                productName: productName,
-            },
-            {
-                headers: { 'Content-Type': 'application/json' }
-            });
+        const addedProduct = await addProduct({
+            productName: productName,
+            amount_in_stock: productQuantity
+        });
 
-            onProductAdded(response.data.productId);
-            setProductName('');
-        } catch (error) {
-            console.error('Error adding the product:', error);
-        }
+        onProductAdded();
+
+        setProductName('');
+        setProductQuantity(0);
     };
 
     return (
@@ -35,6 +31,19 @@ const AddProductForm = ({ onProductAdded }) => {
                     onChange={(e) => setProductName(e.target.value)}
                 />
             </label>
+            <br />
+
+            <label>
+                Quantity:
+                <input
+                    type="text"
+                    name="amount_in_stock"
+                    value={productQuantity}
+                    onChange={(e) => setProductQuantity(e.target.value)}
+                />
+            </label>
+            <br />
+
             <button type="submit" class="btn btn-green">Add Product</button>
         </form>
     );

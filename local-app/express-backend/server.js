@@ -85,18 +85,18 @@ app.get('/api/products/get-all', (req, res) => {
     });
 });
 
-app.post('/api/products/add-product', (req, res) => {
+app.put('/api/products/add-product', (req, res) => {
 
-    const { productName } = req.body;
+    const { productName, amount_in_stock } = req.body;
 
     //validate input
     if(!productName) {
         return res.status(400).json({ error: 'Product name is required' });
     }
 
-    const query = 'INSERT INTO Products (name) VALUES (?)';
+    const query = 'INSERT INTO Products (name, amount_in_stock) VALUES (?, ?)';
 
-    db.query(query, [productName], (err, results) => {
+    db.query(query, [productName, amount_in_stock], (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Internal server error' });
@@ -128,8 +128,6 @@ app.put('/api/users/details/:id', (req, res) => {
     const user_id = req.params.id;
     const { gender, address, country, postal_code } = req.body;
 
-    console.log('rq boyd', req.body);
-
     const userDetailValidation = validateUserDetails(user_id, req.body);
     if (!userDetailValidation['status']) {
         return res.status(400).json({ error: userDetailValidation['error_message']});
@@ -145,12 +143,29 @@ app.put('/api/users/details/:id', (req, res) => {
             postal_code = VALUES(postal_code)
     `;
 
-    db.query(query, [user_id, gender, address, country, postal_code], (err, result) => {
+    db.query(query, [user_id, gender, address, country, postal_code], (err, results) => {
         if (err) {
             console.error('Error updating or inserting user details', err);
             res.status(500).json({ error: 'Internal server error' });
         } else {
             res.json({ success: true, message: 'User details updated or created succesfully' });
+        }
+    });
+});
+
+
+app.get('/api/users/:id', (req, res) => {
+
+    const user_id = req.params.id;
+
+    const query = `SELECT * FROM Users WHERE id = ?`;
+
+    db.query(query, [user_id], (err, results) => {
+        if (err) {
+            console.error('Error getting user.', err);
+            res.status(500).json({ error: 'Internal server error.' });
+        } else{
+            res.json(results);
         }
     });
 });
