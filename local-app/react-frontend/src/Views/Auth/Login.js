@@ -19,9 +19,8 @@ async function loginUser(credentials) {
             throw new Error('Undescript user error');
         }
 
-
         const data = await response.json();
-        return data.token;
+        return { token: data.token, user_id: data.user_id };
 
     } catch (error) {
 
@@ -44,19 +43,22 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            const token = await loginUser({
+            const login_info = await loginUser({
                 username,
                 password
             });
 
-            setToken(token);
+            console.log(login_info);
+
+            setToken(login_info.token);
 
 
             //TODO: replace with actual token instead of dummy token
-            if (token === 'token12') {
+            if (login_info.token === 'token12') {
 
+                localStorage.setItem('user_id', login_info.user_id);
+                
                 navigate('/profile');
-
             }
 
 

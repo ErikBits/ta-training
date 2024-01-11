@@ -27,12 +27,6 @@ db.getConnection((err, connection) => {
     }
 });
 
-// app.use('/login', (req, res) => {
-//     res.send({
-//         token: 'test12'
-//     });
-// });
-
 const findUserByUsername = async (username) => {
     return new Promise((resolve, reject) => {
         db.query('SELECT * FROM Users WHERE username = ?', [username], (err, results) => {
@@ -65,16 +59,18 @@ app.post('/api/user-login', async (req, res) => {
         // DUMMY TOKEN - dont think there is a need to replace this with jwt in this app
         const token = 'token12';
 
-        res.json({ token });
-        
+        res.json({ 
+            token: token,
+            user_id: user.id
+        });
+
+
     } catch (error) {
         console.error('Login failed:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-
-//API endpoints
 app.get('/api/products/get-all', (req, res) => {
     const query = 'SELECT * FROM Products';
 
@@ -105,6 +101,48 @@ app.post('/api/products/add-product', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         } else {
             res.json({ message: 'Product added succesfully', productId: results.insertId });
+        }
+    });
+});
+
+app.get(`/api/users/details/:id`, (req, res) => {
+
+    const user_id = req.params.id;
+    const query = 'SELECT * FROM UserDetails WHERE user_id = ?';
+
+    db.query(query, [user_id], (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else if (0 === results.length) {
+            res.status(404).json({ error: 'User not found' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+app.put('/api/users/details/:id', (req, res) => {
+
+    const user_id = req.params.id;
+    const { gender, address, country, postal_code } = req.body;
+
+    const query = `
+        INSERT INTO UserDetails (user_id, gender, address, country, postal_code)
+        VALUES (?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+            gender = VALUES(gender),
+            address = VALUES(address),
+            country = VALUES(country),
+            postal_code = VALUES(postal_code)
+    `;
+
+    db.query(query, [user_id, gender, address, country, postal_code], (err, result) => {
+        if (err) {
+            console.error('Error updating or inserting user details', err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.json({ success: true, message: 'User details updated or created succesfully' });
         }
     });
 });

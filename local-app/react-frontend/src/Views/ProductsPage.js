@@ -3,25 +3,11 @@ import AddProductForm from "./AdminViews/ManageProducts";
 import { getProducts } from "../helpers/helpers.js";
 
 
-
 const ProductsPage = () => {
     // What is usestate?
     const [products, setProducts] = useState([]);
 
-    // const fetchProducts = async () => {
-    //     try {
-    //         const response = await axios.get('http://localhost:3002/api/products/get-all');
-    //         setProducts(response.data);
-    //       } catch (error) {
-    //         console.error('Error fetching products:', error);
-    //       }
-    // };
-
-    // what is useeffect?
-    // useEffect(() => {
-    //     fetchProducts();
-    // }, []);
-
+    
     useEffect(() => {
         const fetchData = async () => {
             const fetchedProducts = await getProducts();

@@ -9,3 +9,23 @@ export const getProducts = async () => {
         return [];
     }
 };
+
+export const getUserDetails = async (user_id) => {
+    try {
+        const response = await axios.get(`http://localhost:3002/api/users/details/${user_id}`);
+        return response.data[0];
+    } catch (error) {
+        console.error('Error getting user details', error);
+        return [];
+    }
+};
+
+export const updateUserDetails = async (user_id, details) => {
+    try {
+        const response = await axios.put(`http://localhost:3002/api/users/details/${user_id}`, details);
+        return response.data;
+    } catch (error) {
+        console.error('Error updating or creating user details', error);
+        return [];
+    }
+}
