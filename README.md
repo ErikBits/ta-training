@@ -6,9 +6,20 @@ Note: this is my first time creating and using a containerized development envir
 # Installation # 
 
 ## Requirements ##
+Installation procedures are all based on windows.
+
+### git ###
+Verify if git is installed via `git --version` in the command prompt.
+
+If the program is not recognized, install the git bash terminal via: .
+
+#### github ####
+A github account is also required. This can be made here: .
 
 ### Node ###
-Check via `node --version`
+Verify if node is installed via `node --version`. 
+
+If node is not installed, you can install it via: .
 
 ### Docker ###
 Install docker client via 
@@ -16,8 +27,7 @@ Install docker client via
 ### IDE ### 
 Install and use visual studio code: https://code.visualstudio.com
 
-#### VS Code Plugins ####
-- Docker Extension (?)
+<!-- #### VS Code Plugins #### -->
 
 
 ## Installation Procedures ##
@@ -26,8 +36,20 @@ Install and use visual studio code: https://code.visualstudio.com
 Respository: 
 Fork and then clone the repository locally so you can make alterations along the way.
 
+Fork the repository in your browser. More information can be found here: .
+
+After forking, copy the link of the repository by clicking the '' button and copying the https link ending with .git (we will not be dealing with ssh keys). 
+
+Open a terminal and move toward the directory where you would like the project to reside. For example, if I want it to be in `C:/Users/Luuk/Documents/Programs`, depending on where I am currently (you can see it on the left of the terminal, or you can type `cd` to print the current working directory), I would type `cd Documents/Programs` (the windows command prompt autocompletes file and directory names when using tab). If the `Programs` directory does not exist yet you can type `mkdir Programs` and subsequently do `cd Programs`. Cd stands for change directory. 
+
+We can now clone the repository via: 
+`git clone <repository-url>.git`
+Pasting in the terminal (especially linux terminals) can be done via right-clicking inside the terminal.
+
+The repository should now be downloaded. When you type `dir` you can see all the given files and directories inside your current working directory. `cd` into the newly created directory and type `code .`. This will open the project inside Visual Studio Code. Now you are ready to begin!
 
 ## Working with material ##
+Where possible I tried to implement workbooks which (should) make it easier to follow along and build on your programs incrementally. If not possible I am working with code comments to further outline the steps to be taken via code comments. 
 
 ### Mysql server container ###
 Run containers

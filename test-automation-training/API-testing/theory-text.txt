@@ -1,0 +1,16 @@
+TODO: convert to notebook ?
+
+Think what tests or aspects of tests can be done at API level rather than E2E, as this saves a lot of resources and time in the overall testing process.
+
+API tests:
+- Boundary value analyses
+- If validating complex JSON or XML responses with complex logic in their structure it might just be good to do schema analysis, if all expected items are present and not always testing their actual content.
+
+
+During refinement it is good to specify the complexity of an API.
+- This can be classified to get a comperative structure for the performance. For example, one can differentiate between readonly, writing singular or multiple databases, integrated with extrnal software APIs. This can ensure that you have relative measurements for the API in what kind of performance they should fall (the exact MS or performance criteria are very project dependent thus cannot be compared across projects).
+
+You can run performance tests every day to see the performance of an API on a regular basis. This ensures that if performance falters this could mean that a recent code change has a large impact on performance and should be revised. So absolute in ms for example. Or based on daily relative performance. 
+
+
+It is important to think ahead of time on what environment you do these tests. If you test it on a test environment with far less capacity, what will the test say about the end result? Ideally you have a staging environment with the same capacity as production so you can do proper load tests for the service and have actual proof of performance. 
