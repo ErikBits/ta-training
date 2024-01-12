@@ -1,7 +1,7 @@
 # About # 
-This is an attempt to show the basics of test automation on varying test levels. It uses a container to ensure that all dependencies are installed and configured. The container runs on linux, hence basic linux commands are helpful to understand. Any time I think a command is helpful to know I will let you know.
+This is an attempt to show the basics of test automation on varying test levels. It uses a container to ensure that all dependencies are installed and configured.
 
-Note: this is my first time creating and using a containerized development environment. If you have any feedback or notice inconsistencies please inform me.
+Note: this is my first time creating and using a containerized development environment. If you have any feedback or notice inconsistencies please inform me. More general feedback is also appreciated. If there are things which you find unclear feel free to reach out so I can make the changes.
 
 # Installation # 
 
@@ -80,6 +80,11 @@ As the database is basically the image with no other local files you need to run
 
 
 # Troubleshooting #
+
+## Using installed programs ##
+If you are having trouble executing for example python or node from the command line or in your scripts, ensure that the program is in the path. While you can also supply the absolute path to an executable (i.e. python, npm) this is cumbersome and can lead to errors in replicability when sharing code. Therefore you can add the programs to your path. The path environment variable is a collection of locations where executables or programs are found. When executing, for example, `python` in the command prompt, the system will look through the path to see if it can find an executable that matches your command. This way you can execute your tasks far more efficiently.
+
+To add programs to your path you need to go to 'Edit the system environment variables' screen in windows, click on 'Environment Variables', and locate the 'Path' variable inside the 'User variables' table. You click on edit after selecting Path and create a new entry with the absolute path to the executable you want to add. For python that could be: `C:\Users\luuks\AppData\Local\Programs\Python\Launcher\`. 
 
 ## MySQL database ##
 

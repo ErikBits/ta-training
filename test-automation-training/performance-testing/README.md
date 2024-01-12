@@ -1,5 +1,11 @@
 # Installation #
 
+Ensure Python is installed. I have found python to use various keywords to execute it from the command prompt, but one of these should work:
+`py --version`
+`py3 --version`
+`python --version`
+`python3 --version`
+
 Ensure pip is installed.
 `pip --version`
 
