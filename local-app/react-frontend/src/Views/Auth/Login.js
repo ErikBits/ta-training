@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import useToken from "../../hooks/useToken";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 async function loginUser(credentials) {
 
@@ -38,6 +39,9 @@ const LoginPage = () => {
     const { token, setToken } = useToken(); /* eslint-disable-line */
 
     const navigate = useNavigate();
+
+    // const location = useLocation(); // location.pathname returns slashes as well as hyphens -> ill pass it manually for now
+    useDocumentTitle("Login");
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -76,15 +80,15 @@ const LoginPage = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={e => setUsername(e.target.value)} id="username-input"/>
+                    <input type="text" onChange={e => setUsername(e.target.value)} data-testid="username-input" placeholder="Enter username"/>
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} id="password-input"/>
+                    <input type="password" onChange={e => setPassword(e.target.value)} data-testid="password-input" placeholder="Enter password"/>
                 </label>
 
                 <div>
-                    <button className="btn btn-green" type="submit" id="login-submit">Submit</button>
+                    <button className="btn btn-green" type="submit" data-testid="login-submit">Sign in</button>
                 </div>
             </form>
         </div>

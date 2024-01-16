@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { getProducts } from "../helpers/backendHelpers";
+import useDocumentTitle from "../hooks/useDocumentTitle";
 
 const HomePage = () => {
 
     const [products, setProducts] = useState([]);
+
+    useDocumentTitle();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,9 +24,9 @@ const HomePage = () => {
 
             <ul>
                 {products.slice(0, 3).map((product) => 
-                    <li class="product-listing p-2 mx-2 my-3" key={product.id} id={`product-${product.id}`}>
-                        <b id={`product-${product.id}-name`}>{product.name}</b>
-                        <div id={`product-${product.id}-quantity`}>Stock:{product.amount_in_stock}</div>
+                    <li class="product-listing p-2 mx-2 my-3" key={product.id} data-testid={`product-${product.id}`}>
+                        <b data-testid={`product-${product.id}-name`}>{product.name}</b>
+                        <div data-testid={`product-${product.id}-quantity`}>Stock:{product.amount_in_stock}</div>
                     </li>
                 )}
             </ul>

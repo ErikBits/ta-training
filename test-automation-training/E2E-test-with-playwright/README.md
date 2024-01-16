@@ -3,6 +3,8 @@ Attempt at showing how test automation works via an actual codebase with a websi
 
 In the directory `./tests/` you will find all the information and steps and the intent is to guide you along and incrementally increase the level of difficulty. Code comments (in typescript files indicated by `// ...` or block comments `/* ... */`) will explain everything along the way.
 
+Where I think it is useful to know some stuff, I have added some tips to the bottom of the page. Ideally you would try to figure it out yourself before accessing the tips.
+
 # Requirments #
 
 ## git ##

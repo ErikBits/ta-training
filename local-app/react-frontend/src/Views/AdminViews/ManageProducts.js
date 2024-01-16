@@ -29,7 +29,8 @@ const AddProductForm = ({ onProductAdded }) => {
                     name="productName"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
-                    id="product-name-input"
+                    data-testid="product-name-input"
+                    placeholder="Enter name"
                 />
             </label>
             <br />
@@ -41,12 +42,12 @@ const AddProductForm = ({ onProductAdded }) => {
                     name="amount_in_stock"
                     value={productQuantity}
                     onChange={(e) => setProductQuantity(e.target.value)}
-                    id="product-quantity-input"
+                    data-testid="product-quantity-input"
                 />
             </label>
             <br />
 
-            <button type="submit" class="btn btn-green" id="add-product-submit">Add Product</button>
+            <button type="submit" class="btn btn-green" data-testid="add-product-submit">Add Product</button>
         </form>
     );
 };
