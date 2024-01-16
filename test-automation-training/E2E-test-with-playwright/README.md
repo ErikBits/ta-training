@@ -14,7 +14,16 @@ Ensure you have forked the repository so you can make commits and save your work
 run `npx playwright install` to install latest depedencies before running. This will automatically install dependencies based on the package.json.
 
 # Running tests #
-Playwright runs headless by default. This means you wont see what is happening without turning headless off in the playwirght.config.ts file.
+Ensure the website is up and running. Only then will the tests do anything. Refer to the README in the base directory for more information.
+
+## Running tests from the command line ##
+Playwright runs headless by default. This means you wont see what is happening without turning headless off in the playwirght.config.ts file. Running tests in headed mode can be done by adding the suffix `--headed` when running the tests from the command line.
+
+## Running tests from VS Code ##
+NOTE: Requires a plugin I think -> have not researched this.
+
+## Running tests from Playwright UI mode ##
+NOTE: Also requires more research from my part
 
 ## UI mode ##
 You can run `npx playwright test --ui` to get a UI mode for debugging and an easier development experience. 
