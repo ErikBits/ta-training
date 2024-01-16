@@ -3,11 +3,14 @@ import useToken from "../hooks/useToken";
 import { Navigate } from "react-router-dom";
 import { getUserDetails, updateUserDetails } from "../helpers/backendHelpers";
 import { validateUserDetails } from "../helpers/validationHelpers";
+import useDocumenTitle from "../hooks/useDocumentTitle";
 
 
 const ProfilePage = () => {
 
     const { token, setToken } = useToken(); /* eslint-disable-line */
+
+    useDocumenTitle("Profile");
 
     const [userDetails, setUserDetails] = useState({
         gender: 1,
@@ -102,7 +105,7 @@ const ProfilePage = () => {
                         value={userDetails.gender}
                         name="gender"
                         onChange={handleInputChange}
-                        id="user-details-gender"
+                        data-testid="user-details-gender"
                     >
                         <option value="1">Female</option>
                         <option value="2">Male</option>
@@ -118,7 +121,7 @@ const ProfilePage = () => {
                         name="address"
                         value={userDetails.address}
                         onChange={handleInputChange}
-                        id="user-details-address"
+                        data-testid="user-details-address"
                     />
                 </label>
                 <br />
@@ -129,7 +132,7 @@ const ProfilePage = () => {
                         value={userDetails.country}
                         name="country"
                         onChange={handleInputChange}
-                        id="user-details-country"
+                        data-testid="user-details-country"
                     >
                         <option value="1">The Netherlands</option>
                         <option value="2">Belgium</option>
@@ -145,7 +148,7 @@ const ProfilePage = () => {
                         name="postal_code"
                         value={userDetails.postal_code}
                         onChange={handleInputChange}
-                        id="user-details-postal-code"
+                        data-testid="user-details-postal-code"
                     />
                 </label>
                 <br />

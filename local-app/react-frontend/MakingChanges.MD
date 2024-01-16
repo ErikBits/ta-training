@@ -1,0 +1,1 @@
+TODO: make outline how others can make changes to the app

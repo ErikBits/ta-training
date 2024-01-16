@@ -1,4 +1,5 @@
 TODO: convert to notebook ?
+TODO: API tests with both katalon (?) and via scripting (just python? or can use js I guess). https://katalon.com/resources-center/blog/postman-alternatives-api-testing
 
 Think what tests or aspects of tests can be done at API level rather than E2E, as this saves a lot of resources and time in the overall testing process.
 
