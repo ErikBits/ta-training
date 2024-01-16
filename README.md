@@ -1,6 +1,8 @@
 # About # 
 This is an attempt to show the basics of test automation on varying test levels. It uses a container to ensure that all dependencies are installed and configured.
 
+For more detailed information on testing, refer to the subdirectories within /test-automation-training/. More detailed information and potential follow-up steps will be explained in their respective category.
+
 Note: this is my first time creating and using a containerized development environment. If you have any feedback or notice inconsistencies please inform me. More general feedback is also appreciated. If there are things which you find unclear feel free to reach out so I can make the changes.
 
 # Installation # 
@@ -8,21 +10,21 @@ Note: this is my first time creating and using a containerized development envir
 ## Requirements ##
 Installation procedures are all based on windows.
 
-### git ###
+### Git ###
 Verify if git is installed via `git --version` in the command prompt.
 
-If the program is not recognized, install the git bash terminal via: .
+If the program is not recognized, install the git bash terminal via: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git.
 
-#### github ####
-A github account is also required. This can be made here: .
+#### Github ####
+A github account is also required. This can be made on github: https://github.com.
 
 ### Node ###
 Verify if node is installed via `node --version`. 
 
-If node is not installed, you can install it via: .
+If node is not installed, you can install it via: https://nodejs.org/en/download.
 
 ### Docker ###
-Install docker client via 
+Install docker client via https://docs.docker.com/desktop/install/windows-install/. 
 
 ### IDE ### 
 Install and use visual studio code: https://code.visualstudio.com
@@ -51,33 +53,65 @@ The repository should now be downloaded. When you type `dir` you can see all the
 ## Working with material ##
 Where possible I tried to implement workbooks which (should) make it easier to follow along and build on your programs incrementally. If not possible I am working with code comments to further outline the steps to be taken via code comments. 
 
-### Mysql server container ###
+### Containers ###
+Ensure that the Docker Desktop program is running when doing anything with docker.
+
+#### Building images ####
+As the images are not (yet) hosted in the docker marketplace, the images will have to be built in order for the project to run.
+
+Build the separate images by opening a terminal, and changing the directory. 
+
+First we will build the backend image: `cd ./local-app/express-backend/`. Then we will run the docker build command to generate an image from the code. Building an image takes name, tag and directory as inputs. Ensure the name and tag are the same as in the `docker-compose.yml` file for later steps to succeed. You can just copy and paste this code:
+`docker build -t backend-image:0.5 .`
+
+For the frontend image we will also change directories to be inside the react project. Run `cd ..` to go back one directory, then `cd ./react-frontend` to change the directories where we need to go. As with the backend image, the frontend image has to have the same name and tag. Copy and paste the following command:
+`docker build -t frontend-image:0.2 .`
+
+Now the images are ready to be run as containers!
+
+#### Running containers from the images #### 
+Via docker-compose we can run several images at once. Ideal if you have separate services like in our situation with a frontend, backend and database.
+
+
 Run containers
-` docker-compose up -d`
+` docker-compose -f ./docker-compose.yml up`
 
-Stop containers
-` docker ps `
-` docker stop <containerName>`
+We can run the containers as a background process so we dont have to keep a terminal open by adding the tag `-d` to the docker-compose command. However, it can be helpful to what is going on in the terminal to see if any errors come up.
 
-### Backend ### 
-`cd local-app\express-backend`
-`node express.js`
+Now you should be able to http://localhost:3000 to play around with the website. The backend API is running on port 3002 and the mysql server on port 3306.
 
-### Frontend ###
-`cd local-app\react-frontend`
-`npm start`
+#### Stopping the web app ####
+When you are done with web app and wish to close all the services you can simply run `docker-compose -f ./docker-compose.yml down`.
+
 
 ## Making alterations in the webapp ##
-If you do decide to make alterations to the weball you need to rebuild the image. This can be done by going to the respective directory and building via
+If you do decide to make alterations to the webapp you need to rebuild the images. This can be done by going to the respective directory and building via
 `docker build -t <image-name>:tag .`
 Then adjust the docker-compose.yml file to reflect the new image. Rerun the compose file to reflect the changes.
 
+remove volume. Especially relevant for DB which will save items and not reinitialize if you dont remove it
+`docker-compose -f docker-compose.yml down -v`
+
+### Running services separately ###
+I run the services separately and manually when working on the webapp, so i dont have to rebuild the image every time. When i am finished I will rebuild the images.
+
+If you are running the services separately as containers you can stop containers via `docker stop {container-name}`. You can find the running contains via `docker ps`.
+
+#### Database ####
 As the database is basically the image with no other local files you need to run this as a docker container during development anyhow. Run the following command:
 
-`docker-compose -f docker-compose-dev-mysql-only.yml up`
+`docker-compose -f docker-compose-dev-mysql-only.yml up --build` for fresh build with new database initialization
+
+#### Backend ####
+`cd local-app\express-backend`
+`node express.js`
+
+#### Frontend ####
+`cd local-app\react-frontend`
+`npm run start`
+
 
 # Notes #
-
 
 # Troubleshooting #
 

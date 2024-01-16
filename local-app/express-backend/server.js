@@ -12,8 +12,11 @@ const port = 3002;
 app.use(cors());
 app.use(express.json());
 
+const dbHost = process.env.DB_HOST || 'localhost';
+
 const db = mysql.createPool({
-    host: 'localhost' || process.env.DB_HOST, //NOTE: this might not work in my containerized setup anymore. change to mysql-container when building to be sure?
+    // host: 'localhost' || process.env.DB_HOST, //NOTE: this might not work in my containerized setup anymore. change to mysql-container when building to be sure?
+    host: dbHost,
     user: 'testuser',
     password: 'testpw',
     database: 'ta_test_db'
