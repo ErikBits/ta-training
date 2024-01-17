@@ -153,7 +153,7 @@ const ProfilePage = () => {
                 </label>
                 <br />
 
-                <button type="button" onClick={handleSave} id="user-details-submit">Save</button>
+                <button type="button" onClick={handleSave} id="user-details-submit" class="btn btn-green">Save</button>
             </form>
 
         </div>

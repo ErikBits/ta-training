@@ -132,6 +132,7 @@ app.put('/api/users/details/:id', (req, res) => {
     const { gender, address, country, postal_code } = req.body;
 
     const userDetailValidation = validateUserDetails(user_id, req.body);
+    console.log('server.js userDetailValidation', userDetailValidation);
     if (!userDetailValidation['status']) {
         return res.status(400).json({ error: userDetailValidation['error_message']});
     };
