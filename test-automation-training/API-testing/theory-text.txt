@@ -15,3 +15,6 @@ You can run performance tests every day to see the performance of an API on a re
 
 
 It is important to think ahead of time on what environment you do these tests. If you test it on a test environment with far less capacity, what will the test say about the end result? Ideally you have a staging environment with the same capacity as production so you can do proper load tests for the service and have actual proof of performance. 
+
+
+API testing can be done in varying ways. This will cover API testing from a script, as well as using tools such as postman.
