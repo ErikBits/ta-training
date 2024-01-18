@@ -10,24 +10,42 @@ Note: this is my first time creating and using a containerized development envir
 ## Requirements ##
 Installation procedures are all based on windows.
 
+On various occasions you will need to open the command prompt to execute certain commands. You can find this by searching 'command prompt' in the windows search bar
+and opening it here. 
+
 ### Git ###
+Git is used for version control and sharing such versions with others. Often git is used in tandem with a hosted service
+such as Github. This is a centralized repository where code can be hosted and others can make changes, view your changes or 
+download your code.
+
+Version control can be helpful if your latest change breaks your program or tests entirely. With version control, the old 
+version of your program still exists and you can see the differences to see what caused the issue.
+
 Verify if git is installed via `git --version` in the command prompt.
 
 If the program is not recognized, install the git bash terminal via: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git.
 
 #### Github ####
-A github account is also required. This can be made on github: https://github.com.
+This is an online website where you can save your code. A github account is required and can be made on: https://github.com. 
 
 ### Node ###
-Verify if node is installed via `node --version`. 
+Node is a runtime environment for javascript programs. It allows for asynchronous execution of functions present in a file. This means for example, that all the endpoints specified in the file can be called independently and at the same time. This allows for the generation of dynamic web page content. (verify this explanation)
+
+Verify if node is installed via `node --version`.
 
 If node is not installed, you can install it via: https://nodejs.org/en/download.
 
 ### Docker ###
+Docker allows you to run software in isolated 'containers'. This means that the code is sharable with others as well as ensuring a higher likelyhood of the code 
+functioning exactly the same on other machines. For our purposes, we will build the containers from the code, and let docker run this software as containers automatically.
+
 Install docker client via https://docs.docker.com/desktop/install/windows-install/. 
 
-### IDE ### 
-Install and use visual studio code: https://code.visualstudio.com
+### IDE ###
+An IDE (integrated development environment) is a text editor specifically oriented toward programming. Whereas word has helpful features for writing essays, IDEs like
+visual studio code help you program more easily. 
+
+An often used IDE which has support for many languages and frameworks is visual studio code. Download it from here: https://code.visualstudio.com
 
 <!-- #### VS Code Plugins #### -->
 
