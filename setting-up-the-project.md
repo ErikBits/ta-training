@@ -47,8 +47,21 @@ visual studio code help you program more easily.
 
 An often used IDE which has support for many languages and frameworks is visual studio code. Download it from here: https://code.visualstudio.com
 
-<!-- #### VS Code Plugins #### -->
+#### VS Code Plugins ####
+To install plugins you can find the extensions tab on the left hand side of the screen. You will need to search for and open the following extensions:
 
+- Jupyter extension
+
+### Python ###
+Ensure python is installed. This is a often used scripting language which we will use for various purposes. It has easy to learn syntax and a large community. So any issues which might arise have very likely been solved before.
+
+#### Jupyter Notebook ####
+Notebooks are a great way to display information and interactively code along. It does not necessarily reflect a real life example of how you would execute scripts but it is a good way for me to display information and code.
+
+pip install jupyter
+pip install ipykernel
+
+press ctrl+shift+p and search for select interpreter to start jupyter server and select the python executable.
 
 ## Installation Procedures ##
 
