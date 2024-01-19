@@ -3,7 +3,7 @@
 
 @layer base {
     html {
-      @apply font-mono;
+      @apply font-jost;
     }
   }
   
@@ -16,11 +16,15 @@
 }
 
 .product-listing {
-  @apply border-solid border-4 border-cyan-600 rounded-lg
+  @apply border-solid border-4 border-gray-700 rounded-lg
 }
 
 .product-listing:hover {
-  @apply border-cyan-400
+  @apply border-emerald-600
+}
+
+::selection {
+  background-color: #059669
 }
 
 @tailwind utilities;

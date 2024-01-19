@@ -36,7 +36,8 @@ INSERT INTO `Products` (`name`, `amount_in_stock`) VALUES
   ('Saw Premium', 1),
   ('Workbench', 1),
   ('Screwdriver', 5),
-  ('Measuring Tape', 50);
+  ('Measuring Tape', 50),
+  ('Hammer 2', 3);
 
   INSERT INTO `Users` (`username`, `password`, `is_admin`) VALUES
     ('admin', 'a', 1);

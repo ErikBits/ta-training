@@ -6,21 +6,31 @@ const Layout = ({ children }) => {
     return (
         <div>
             <header>
-                <nav class="bg-emerald-600 p-4">
-                    <div class="flex justify-center">
-                        <ul class="flex space-x-8 text-gray-300 font-bold text-2xl">
-                            <li class="hover:text-white"><Link to='/' data-testid="home-link">Home</Link></li>
-                            <li class="hover:text-white"><Link to='/about' data-testid="about-link">About</Link></li>
-                            <li class="hover:text-white"><Link to='/products' data-testid="products-link">Products</Link></li>
-                            <li class="hover:text-white"><Link to='/profile' data-testid="profile-link">Profile</Link></li>
+
+                <div className="bg-emerald-600 p-6"></div>
+
+
+
+                <nav className="p-6">
+                    <div className="flex justify-center">
+                        <ul className="flex space-x-8 text-3xl text-gray-700">
+                            <li className="relative hover:text-emerald-600 mb-2 pb-3">
+                                <Link to='/' data-testid="home-link">Home</Link>
+                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600"></div>
+                            </li>
+                            <li className="relative hover:text-emerald-600 mb-2 pb-3">
+                                <Link to='/about' data-testid="about-link">About</Link>
+                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600"></div>
+                            </li>
+                            <li className="relative hover:text-emerald-600 mb-2 pb-3">
+                                <Link to='/products' data-testid="products-link">Products</Link>
+                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600"></div>
+                            </li>
+                            <li className="relative hover:text-emerald-600 mb-2 pb-3">
+                                <Link to='/profile' data-testid="profile-link">Profile</Link>
+                                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-600"></div>
+                            </li>
                         </ul>
-
-
-                        {/* <div class="flex spaxe-x-10 px-4">
-                            <Link to="/profile" id="profile-link">
-                                <img src={profileLogo} alt='profileLogo'></img>
-                            </Link>
-                        </div>  */}
                         
                     </div>
                 </nav>
