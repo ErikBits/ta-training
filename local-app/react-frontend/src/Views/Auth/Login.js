@@ -76,19 +76,19 @@ const LoginPage = () => {
 
     return(
         <div className="login-wrapper">
-            <h1>Please Log in</h1>
+            <h1 className="p-1 font-semibold text-xl">Please Log in:</h1>
             <form onSubmit={handleSubmit}>
                 <label>
-                    <p>Username</p>
-                    <input type="text" onChange={e => setUsername(e.target.value)} data-testid="username-input" placeholder="Enter username"/>
+                    <p className="p-1">Username</p>
+                    <input type="text" onChange={e => setUsername(e.target.value)} data-testid="username-input" placeholder="Enter username" className="p-1"/>
                 </label>
                 <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} data-testid="password-input" placeholder="Enter password"/>
+                    <p className="p-1">Password</p>
+                    <input type="password" onChange={e => setPassword(e.target.value)} data-testid="password-input" placeholder="Enter password" className="p-1"/>
                 </label>
 
                 <div>
-                    <button className="btn btn-green" type="submit" data-testid="login-submit">Sign in</button>
+                    <button className="btn btn-green my-1" type="submit" data-testid="login-submit">Sign in</button>
                 </div>
             </form>
         </div>

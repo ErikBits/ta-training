@@ -95,11 +95,12 @@ const ProfilePage = () => {
 
     return(
         <div>
-            <h1>You are logged in</h1>
+            <h1 className="py-4">You are logged in</h1>
             
 
+            <div className="p-1">Change user details:</div>
             <form>
-                <label>
+                <label className="p-1">
                     Gender:
                     <select 
                         value={userDetails.gender}
@@ -114,7 +115,7 @@ const ProfilePage = () => {
                 </label>
                 <br />
 
-                <label>
+                <label className="p-1">
                     Address:
                     <input 
                         type="text"
@@ -122,11 +123,12 @@ const ProfilePage = () => {
                         value={userDetails.address}
                         onChange={handleInputChange}
                         data-testid="user-details-address"
+                        className="text-gray-600"
                     />
                 </label>
                 <br />
 
-                <label>
+                <label className="p-1">
                     Country:
                     <select 
                         value={userDetails.country}
@@ -141,7 +143,7 @@ const ProfilePage = () => {
                 </label>
                 <br />
 
-                <label>
+                <label className="p-1">
                     Postal Code:
                     <input
                         type="text"
@@ -149,6 +151,7 @@ const ProfilePage = () => {
                         value={userDetails.postal_code}
                         onChange={handleInputChange}
                         data-testid="user-details-postal-code"
+                        className="text-gray-600"
                     />
                 </label>
                 <br />
