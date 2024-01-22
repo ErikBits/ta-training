@@ -2,7 +2,6 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 
-// import { validateUserDetails } from './helpers/validationHelpers.js';
 const { validateUserDetails } = require('./helpers/validationHelpers.js');
 
 const app = express();
@@ -132,7 +131,7 @@ app.put('/api/users/details/:id', (req, res) => {
     const { gender, address, country, postal_code } = req.body;
 
     const userDetailValidation = validateUserDetails(user_id, req.body);
-    console.log('server.js userDetailValidation', userDetailValidation);
+
     if (!userDetailValidation['status']) {
         return res.status(400).json({ error: userDetailValidation['error_message']});
     };
@@ -157,7 +156,7 @@ app.put('/api/users/details/:id', (req, res) => {
     });
 });
 
-
+//TODO: returns 200 when there is no user present in DB with that id
 app.get('/api/users/:id', (req, res) => {
 
     const user_id = req.params.id;
@@ -179,3 +178,5 @@ app.get('/api/users/:id', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+module.exports = app;
