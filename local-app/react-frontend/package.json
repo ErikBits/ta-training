@@ -21,7 +21,8 @@
     "start": "node generateImageList.js && react-scripts start",
     "build": "node generateImageList.js && react-scripts build",
     "test": "vitest",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "coverage": "vitest run --coverage"
   },
   "eslintConfig": {
     "extends": [
@@ -42,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^1.2.1",
     "axios-mock-adapter": "^1.22.0",
     "tailwindcss": "^3.4.0",
     "vitest": "^1.2.1"
