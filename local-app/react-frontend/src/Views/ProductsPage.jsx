@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AddProductForm from "./AdminViews/ManageProducts";
+import AddProductForm from "./AdminViews/ManageProducts.jsx";
 import { getProducts, getUser } from "../helpers/backendHelpers.js";
 import useDocumenTitle from "../hooks/useDocumentTitle.js";
 import { getProductImage } from "../helpers/imageHelpers.js";
@@ -13,6 +13,22 @@ const ProductsPage = () => {
     useDocumenTitle('Products');
 
     var is_admin = 0, user_id;
+
+    
+    // useEffect(() => {
+    //     if ((user_id = localStorage.getItem('user_id')) !== null) {
+    //         const fetchAdminStatus = async (user_id) => {
+    //             console.log('userid', user_id);
+    //             const userDetails = await getUser(user_id);
+    //             console.log('userdetails', userDetails);
+    //             return userDetails[0].is_admin;
+    //         }
+    
+    //         is_admin = fetchAdminStatus(user_id);
+    
+    //     };
+    // }, [user_id]);
+
 
     if ((user_id = localStorage.getItem('user_id')) !== null) {
         const fetchAdminStatus = async (user_id) => {
@@ -53,7 +69,7 @@ const ProductsPage = () => {
             <h1 className="text-3xl">Product list</h1>
             <ul data-testid="products-list" className="grid grid-cols-3 gap-4">
                 {currentProducts.map((product) => (
-                    <li class="product-listing p-2 mx-2 my-3" key={product.id} data-testid={`product-${product.id}`}>
+                    <li className="product-listing p-2 mx-2 my-3" key={product.id} data-testid={`product-${product.id}`}>
                         <img src={`${getProductImage(product.name)}`} alt={product.name} className="max-w-64 max-h-64"/>
                         <b data-testid={`product-${product.id}-name`}>{product.name}</b>
                         <div data-testid={`product-${product.id}-quantity`}>

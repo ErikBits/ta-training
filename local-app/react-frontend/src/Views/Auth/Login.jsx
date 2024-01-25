@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import useToken from "../../hooks/useToken";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import axios from "axios";
 
 async function loginUser(credentials) {
 
     try {
-        const response = await fetch('http://localhost:3002/api/user-login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        });
+        // TODO: verify if this via axios is working. move to helper functions
+        const response = await axios.post('http://localhost:3002/api/user-login', credentials);
+        // const response = await fetch('http://localhost:3002/api/user-login', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(credentials)
+        // });
 
         if(!response.ok) {
             //handle errors

@@ -161,6 +161,7 @@ app.get('/api/users/:id', (req, res) => {
 
     const user_id = req.params.id;
 
+    // also gets pw from the db, which is not ideal
     const query = `SELECT * FROM Users WHERE id = ?`;
 
     db.query(query, [user_id], (err, results) => {

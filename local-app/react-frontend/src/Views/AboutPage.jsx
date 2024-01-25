@@ -6,7 +6,7 @@ const AboutPage = () => {
 
     return (
         <div>
-            <h1>Use this website for your testing purposes! If you come accross any issues please contact me :)</h1>
+            <h1 data-testid="about-text">Use this website for your testing purposes! If you come accross any issues please contact me :)</h1>
         </div>
     );
 };

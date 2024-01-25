@@ -1,4 +1,6 @@
 TODO: convert to notebook?
+ADD: Why What Where When Who How (am i missing something?)
+
 
 Keep in mind the test focus. We often want to start at E2E testing but this is resource and time intensive. Think about what added value E2E tests have over pure API testing in certain scenarios. For example, boundary value analysis is often better at API level as this decreases testing time by a lot. Whereas things which are done by the frontend mostly (i.e.g rounding numbers, seeing if long text is displayed properly) could better be done inside application tests. Thus, test automation is an extra to functional testing not something which completely replaces it. It can be described as checking, while testing encompasses other aspects such as exploratory testing or usability testing. It is paramount that tests are executed manually before automation. 
 
