@@ -1,1 +1,1 @@
-export const imageList = ["drill.jpg","hammer.jpg","no_image.png","saw.jpg"];
+export const imageList = ["drill.jpg","duct_tape_1.jpg","hammer.jpg","no_image.png","saw.jpg","screwdriver_1.jpg"];

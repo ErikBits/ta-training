@@ -9,14 +9,14 @@ async function loginUser(credentials) {
 
     try {
         // TODO: verify if this via axios is working. move to helper functions
-        const response = await axios.post('http://localhost:3002/api/user-login', credentials);
-        // const response = await fetch('http://localhost:3002/api/user-login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(credentials)
-        // });
+        // const response = await axios.post('http://localhost:3002/api/user-login', credentials);
+        const response = await fetch('http://localhost:3002/api/user-login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+        });
 
         if(!response.ok) {
             //handle errors
