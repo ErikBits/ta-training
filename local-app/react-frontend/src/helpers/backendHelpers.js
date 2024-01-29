@@ -44,9 +44,11 @@ export const getUser = async (user_id) => {
 export const addProduct = async (productInfo) => {
     try {
         const response = await axios.put('http://localhost:3002/api/products/add-product', productInfo);
-        return response.data.productId;
+        // return response.data.productId;
+        return {ok: true, data: {productId: response.data.productId } };
+
     } catch (error) {
         console.error('Error adding product');
-        return [];
+        return {ok: false, message: error.message };
     }
 }

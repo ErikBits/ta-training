@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { addProduct } from "../../helpers/backendHelpers";
+import { toast, Toaster } from "react-hot-toast"
 
 const AddProductForm = ({ onProductAdded }) => {
 
@@ -9,19 +10,38 @@ const AddProductForm = ({ onProductAdded }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const productId = await addProduct({
-            productName: productName,
-            amount_in_stock: productQuantity
-        });
+        try {
+            const response = await addProduct({
+                productName: productName,
+                amount_in_stock: productQuantity
+            });
 
-        onProductAdded(productId);
+    
+            if (response.ok) {
+                onProductAdded(response.data.productId);
 
-        setProductName('');
-        setProductQuantity(0);
+                toast.success(`Product added with id: ${response.data.productId}` );
+    
+                setProductName('');
+                setProductQuantity(0);
+            } else {
+                throw new Error(response.message);
+            }
+
+        } catch (error) {
+            console.error('Error adding product:', error.message);
+            toast.error(error.message);
+        }
+
     };
-    // p-2 mx-2 my-3
     return (
         <div className="space-y-2 center-between">
+            <div>
+                <Toaster 
+                    position="bottom-center"
+                />
+            </div>
+
             <div className="text-2xl font-semibold">Add a product:</div>
             
             <form onSubmit={handleSubmit} className="space-y-1">

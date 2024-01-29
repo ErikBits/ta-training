@@ -5,6 +5,8 @@ import { getUserDetails, updateUserDetails } from "../helpers/backendHelpers";
 import { validateUserDetails } from "../helpers/validationHelpers";
 import useDocumenTitle from "../hooks/useDocumentTitle";
 
+import { toast, Toaster } from "react-hot-toast"
+
 
 const ProfilePage = () => {
 
@@ -84,8 +86,11 @@ const ProfilePage = () => {
 
             }
 
+            toast.success('Details updated succesfully');
+
         } catch (error) {
             console.error("Error updating user details:", error);
+            // toast.error(error);
         }
     };
 
@@ -95,6 +100,9 @@ const ProfilePage = () => {
 
     return(
         <div>
+            <div>
+                <Toaster />
+            </div>
             <h1 className="py-4">You are logged in</h1>
             
 
