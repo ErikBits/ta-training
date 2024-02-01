@@ -28,3 +28,15 @@ Install dependencies:
 `pip install -r requirements.txt`
 
 Continue within the notebook.
+
+
+# use
+`locust -f path.py`
+
+
+save to csv:
+`locust -f path.py --csv {name}`
+
+headless:
+`locust -f path.py --headless -u {#users} -r {spawn-rate}`
+runtime in headless `--run-time 60` default in secs (can do `1h30m`)

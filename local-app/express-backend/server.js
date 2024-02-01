@@ -174,6 +174,25 @@ app.get('/api/users/:id', (req, res) => {
     });
 });
 
+app.put('/api/users', (req, res) => {
+    const {username, password, is_admin} = req.body;
+
+    const query = `
+        INSERT INTO Users (username, password, is_admin)
+        VALUES (?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+        `
+
+    db.query(query, [username, password, is_admin], (err, results) => {
+        if (err) {
+            console.error('Issue inserting user', err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            res.json({ success: true, message: 'User inserted or updated succesfully' });
+        }
+    })
+});
+
 
 //start the server
 app.listen(port, () => {
