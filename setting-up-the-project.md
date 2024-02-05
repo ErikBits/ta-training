@@ -87,6 +87,16 @@ Where possible I tried to implement workbooks which (should) make it easier to f
 ### Containers ###
 Ensure that the Docker Desktop program is running when doing anything with docker.
 
+#### .env file
+Some (normally) sensitive information is stored in the .env file. 
+Create a ".env" file in the root directory of your project with the following info:
+
+MYSQL_DATABASE=ta_test_db
+MYSQL_USER=testuser
+MYSQL_PASSWORD=testpw
+MYSQL_ROOT_PASSWORD=rootpw
+MYSQL_PORT=3306
+
 #### Building images ####
 As the images are not (yet) hosted in the docker marketplace, the images will have to be built in order for the project to run.
 
