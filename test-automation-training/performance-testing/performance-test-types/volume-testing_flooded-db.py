@@ -6,7 +6,7 @@ from '../helpers/backend-request-helpers.py' import put_user, put_user_details, 
 
 class FloodedDbUser(FastHttpUser):
 
-    host = 'http://localhost:3002'
+    host = 'http://192.168.1.216:3002'
     users = 250
     spawn_rate = 25
     run_time = '1h'

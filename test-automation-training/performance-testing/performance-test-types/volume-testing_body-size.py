@@ -15,7 +15,7 @@ from '../helpers/backend-request-helpers.py' import put_user, put_user_details, 
 
 class EntityTooLargeUser(FastHttpUser):
 
-    host = 'http://locahost:3002'
+    host = 'http://192.168.1.216:3002'
     users = 100
     spawn_rate = 10
     run_time = '10m'
@@ -72,7 +72,7 @@ class MaxInputBodyUser(FastHttpUser):
     #NOTE: not caring about success or failure of the response here. Just the max input for the databse so i dont get 413
     # need to figure out if there are differences between successful requests and unsuccesful. This can have implicateions and maybe test ahs to be split up
 
-    host = 'http://locahost:3002'
+    host = 'http://192.168.1.216:3002'
     users = 250
     spawn_rate = 25
     run_time = '10m'
