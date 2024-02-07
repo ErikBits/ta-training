@@ -1,7 +1,5 @@
 from locust import FastHttpUser, task, events
 
-import os
-
 import random
 
 class LoadRequestsUser(FastHttpUser):
@@ -21,6 +19,7 @@ class LoadRequestsUser(FastHttpUser):
             'password': 'a'
         }
         res = self.client.post('/api/user-login', json=credentials)
+
         # assert self.validate_status(res)
 
     @task
