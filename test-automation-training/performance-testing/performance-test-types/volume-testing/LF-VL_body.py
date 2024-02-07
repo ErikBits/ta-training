@@ -15,10 +15,7 @@ from '../helpers/backend-request-helpers.py' import put_user, put_user_details, 
 
 class EntityTooLargeUser(FastHttpUser):
 
-    host = 'http://192.168.1.216:3002'
-    users = 100
-    spawn_rate = 10
-    run_time = '10m'
+
 
     #idk how big these bodies should be
     string_body_character_amount = 10**2

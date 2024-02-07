@@ -1,15 +1,10 @@
-#test to see if it can sustain unexpected loads over long times
-
-from locust import HttpUser, FastHttpUser, task
+from locust import HttpUser, task, FastHttpUser
 
 import random
 
-class EndurancePostRequestsUser(FastHttpUser):
+class SpikePostRequestsUser(FastHttpUser):
     
-    host = 'http://192.168.1.216:3002'
-    users = 300 #  more users since there is less overhead
-    spawn_rate = 30
-    run_time = '1h30m'
+
 
 
     @task
@@ -60,4 +55,3 @@ class EndurancePostRequestsUser(FastHttpUser):
         # assert self.validate_status(res)
         self.client.get('/api/users/1')
 
-    

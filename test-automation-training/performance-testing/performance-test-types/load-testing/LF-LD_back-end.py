@@ -1,6 +1,3 @@
-#normal test of performance
-
-
 from locust import FastHttpUser, task, events
 
 import os
@@ -9,23 +6,12 @@ import random
 
 class LoadRequestsUser(FastHttpUser):
 
-    host = 'http://192.168.1.216:3002'
-    users = 100 #  more users since there is less overhead
-    spawn_rate = 10
-    run_time = 1800 #easier if time is in seconds
-    headless = True
-
 
     # # TODO: add way to collect metrics automaically on start. for now not worth it and just run the script
     # @events.test_start.add_listener
     # def on_test_start(environment, self, **kwargs):
     #     os.system(f"ssh luuks@192.168.1.216 python3 /home/luuks/server/collect_server_metrics.py {self.run_time}")
     
-
-
-
-
-
 
 
     @task

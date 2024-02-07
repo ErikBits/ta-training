@@ -4,12 +4,9 @@ import random
 
 from '../helpers/backend-request-helpers.py' import put_user, put_user_details, put_product
 
+# need to make a flood test for the frontend products because it grabs all products
 class FloodedDbUser(FastHttpUser):
 
-    host = 'http://192.168.1.216:3002'
-    users = 250
-    spawn_rate = 25
-    run_time = '1h'
 
 
     #flood db

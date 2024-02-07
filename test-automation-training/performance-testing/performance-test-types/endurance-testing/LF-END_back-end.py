@@ -1,12 +1,9 @@
-from locust import HttpUser, task, FastHttpUser
+from locust import HttpUser, FastHttpUser, task
 
-class StressPostRequestsUser(FastHttpUser):
+import random
+
+class EndurancePostRequestsUser(FastHttpUser):
     
-    host = 'http://192.168.1.216:3002'
-    users = 12500 #  more users since there is less overhead
-    spawn_rate = 1250
-    run_time = '30m'
-
 
     @task
     def post_login(self):
@@ -56,3 +53,4 @@ class StressPostRequestsUser(FastHttpUser):
         # assert self.validate_status(res)
         self.client.get('/api/users/1')
 
+    

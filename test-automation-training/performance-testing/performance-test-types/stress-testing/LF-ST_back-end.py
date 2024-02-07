@@ -1,15 +1,8 @@
 from locust import HttpUser, task, FastHttpUser
 
-import random
-
-class SpikePostRequestsUser(FastHttpUser):
+class StressPostRequestsUser(FastHttpUser):
     
 
-    #these variables do not really seem to be working -> need to start it from command line or from a locustfile or somseting
-    host = 'http://192.168.1.216:3002'
-    users = 1000 #  more users since there is less overhead
-    spawn_rate = 100
-    run_time = 1200
 
 
     @task
