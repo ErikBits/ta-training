@@ -16,15 +16,15 @@ jobs:
         ports:
           - 3306:3306
         # Before continuing, verify the mysql container is reachable from the ubuntu host
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         volumes:
           - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
     - uses: actions/checkout@v3
 
     - name: check init.sql execution
-      run: docker exec -i mysql ls /docker-entrypoint-initdb.
-      
+      run: docker exec -i mysql ls /docker-entrypoint-initdb.sql
+
     - name: schow current directory
       run: echo $GITHUB_WORKSPACE
     - name: use node.js
