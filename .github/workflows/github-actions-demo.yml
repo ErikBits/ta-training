@@ -9,9 +9,10 @@ jobs:
         image: mysql:latest
         env:
           MYSQL_DATABASE: ta_test_db
-          MYSQL_ROOT_PASSWORD: rootpw
           MYSQL_USER: testuser
           MYSQL_PASSWORD: testpw
+          MYSQL_ROOT_PASSWORD: rootpw
+          MYSQL_PORT: 3306
         ports:
           - 3306:3306
         # Before continuing, verify the mysql container is reachable from the ubuntu host
