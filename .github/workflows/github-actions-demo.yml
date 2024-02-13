@@ -20,6 +20,7 @@ jobs:
       - name: list files in repo
         run: | 
           ls ${{ github.workspace }}
+      - run: pwd
       - name: install dependencies backend
         run: cd local-app/express-backend/
       - name: install dependencies
