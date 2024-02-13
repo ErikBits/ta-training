@@ -20,8 +20,11 @@ jobs:
         volumes:
           - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
-
     - uses: actions/checkout@v3
+
+    - name: check init.sql execution
+      run: docker exec -i mysql ls /docker-entrypoint-initdb.
+      
     - name: schow current directory
       run: echo $GITHUB_WORKSPACE
     - name: use node.js
