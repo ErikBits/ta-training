@@ -36,7 +36,7 @@ jobs:
 
     - name: identify PID for backend server
       run: |
-        $server_pid = $(pgrep -f 'node local-app/express-backend/server.js')
+        $server_pid = $(pgrep -f 'node server.js')
         echo "server PID: $server_pid"
 
     - name: run backend tests
