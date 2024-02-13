@@ -194,6 +194,34 @@ app.put('/api/users', (req, res) => {
 });
 
 
+
+app.post('/api/calculate-score', (req, res) => {
+    const {score} = req.body;
+
+    let result = '';
+
+    if (score < 0) {
+        result = "invalid score";
+    } else if (score >= 0 && score < 10) {
+        result = 'A';
+    } else if (score >= 10 && score < 20) {
+        result = 'B';
+    } else if (score >= 20 && score < 30) {
+        result = 'C';
+    } else if (score >= 30 && score < 40) {
+        result = 'D';
+    } else if (score >= 40 && score < 50) {
+        result = 'E';
+    } else if (score >= 50) {
+        result = "invalid score";
+    } else {
+        result = "invalid input";
+    }
+
+    res.json({ result })
+});
+
+
 //start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
