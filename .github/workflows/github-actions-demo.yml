@@ -21,14 +21,17 @@ jobs:
         run: | 
           ls ${{ github.workspace }}
       - run: pwd
-      - name: install dependencies backend
-        run: cd local-app/express-backend/
+      # - name: install dependencies backend/
+        # run: cd local-app/express-backend/
       - name: install dependencies
         run: npm install
+        working-directory: local-app/express-backend/
       - name: run server
         run: node server.js
+        working-directory: local-app/express-backend/
       - name: execute tests
         run: npm run test
+        working-directory: local-app/express-backend/
   # explore-github-actions:
   #   runs-on: ubuntu-latest
   #   steps:
