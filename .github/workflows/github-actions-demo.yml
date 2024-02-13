@@ -24,8 +24,9 @@ jobs:
       run: |
         pwd
         ls -la
-    - working-directory: local-app/express-backend
-    - run: |
+    - name: change working dir
+      working-directory: local-app/express-backend
+      run: |
         pwd
         ls -la
 
