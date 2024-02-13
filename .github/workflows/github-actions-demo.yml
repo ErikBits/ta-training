@@ -17,8 +17,18 @@ jobs:
         # Before continuing, verify the mysql container is reachable from the ubuntu host
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-      - run: | 
+      - name: list files in repo
+        run: | 
           ls ${{ github.workspace }}
+      - name: install dependencies backend
+        run: cd local-app/express-backend/
+      - name: install dependencies
+        run: npm install
+      - name: run server
+        run: node server.js
+      - name: execute tests
+        run: npm run test
+        run: cd ../..
   # explore-github-actions:
   #   runs-on: ubuntu-latest
   #   steps:
