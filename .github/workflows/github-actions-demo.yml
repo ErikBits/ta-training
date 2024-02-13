@@ -1,18 +1,23 @@
 name: Github Actions Webshop App Demo
 run-name: ${{ github.actor }} testing github actions
 on: [push]
-jobs: 
-  explore-github-actions:
+jobs:
+  run-backend-unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "automatically triggered by ${{ github.event_name }}"
-      - run: echo "running on ${{ runner.os }}"
-      - run: echo "name of branc h is ${{ github.ref }} and repo is ${{ github.repository }}"
-      - name: check out repository code
-        uses: actions/checkout@v4
-      - run: echo "${{ github.repository }} has been cloned to runner"
-      - run: echo "workflow ready to test code on hte runner"
-      - name: list files in repo
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "job status is ${{ job.status }}"
+      - run: cd ./local-app/express-backend
+      - run: npm install
+      - run: node server.js
+      - run: npm run test
+  # explore-github-actions:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: 
+  #     - name: check out repository code
+  #       uses: actions/checkout@v4
+  #     - run: echo "${{ github.repository }} has been cloned to runner"
+  #     - run: echo "workflow ready to test code on hte runner"
+  #     - name: list files in repo
+  #       run: |
+  #         ls ${{ github.workspace }}
+  #     - run: echo "job status is ${{ job.status }}"
