@@ -23,6 +23,8 @@ jobs:
     # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
     - uses: actions/checkout@v4
+      with:
+          ref: main
 
       # - run: docker ps
 
