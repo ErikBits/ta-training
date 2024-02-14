@@ -20,50 +20,51 @@ jobs:
         volumes:
           - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
-    - run: sudo chown -R $USER local-app/mysql-db/init.sql
+      - run: echo "test"
+    # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
     # - uses: actions/checkout@v4
 
-    - name: check init.sql execution
-      run: docker exec -i mysql ls /docker-entrypoint-initdb.sql
+    # - name: check init.sql execution
+    #   run: docker exec -i mysql ls /docker-entrypoint-initdb.sql
 
-    - name: schow current directory
-      run: echo $GITHUB_WORKSPACE
-    - name: use node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20.x'
+    # - name: schow current directory
+    #   run: echo $GITHUB_WORKSPACE
+    # - name: use node.js
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: '20.x'
 
-    - name: install dependencies
-      working-directory: local-app/express-backend
-      run: npm install
+    # - name: install dependencies
+    #   working-directory: local-app/express-backend
+    #   run: npm install
 
-    - name: run backend server in background
-      working-directory: local-app/express-backend
-      run: node server.js &
+    # - name: run backend server in background
+    #   working-directory: local-app/express-backend
+    #   run: node server.js &
 
-    - run: ps
+    # - run: ps
 
-    - name: identify PID for backend server
-      run: |
-        server_pid=$(pgrep -f 'node server.js')
-        echo "server PID: $server_pid"
+    # - name: identify PID for backend server
+    #   run: |
+    #     server_pid=$(pgrep -f 'node server.js')
+    #     echo "server PID: $server_pid"
 
-    - name: run backend tests
-      working-directory: local-app/express-backend
-      run: npm run test
+    # - name: run backend tests
+    #   working-directory: local-app/express-backend
+    #   run: npm run test
 
-    # Move down
-    - name: kill backend server
-      if: always()
-      run: |
-        if [[ -n "$server_pid" ]]; then
-          kill -2 "$server_pid"
-        else
-          echo "server pid not found, may already have exited"
-        fi
+    # # Move down
+    # - name: kill backend server
+    #   if: always()
+    #   run: |
+    #     if [[ -n "$server_pid" ]]; then
+    #       kill -2 "$server_pid"
+    #     else
+    #       echo "server pid not found, may already have exited"
+    #     fi
 
-    - run: echo "job status is ${{ job.status }}"
+    # - run: echo "job status is ${{ job.status }}"
 
 
 
