@@ -29,13 +29,14 @@ jobs:
     # - name: check init.sql execution
     #   run: docker exec -i mysql-container ls /docker-entrypoint-initdb.sql
 
-    - name: schow current directory
-      run: echo $GITHUB_WORKSPACE
+    # - name: schow current directory
+    #   run: echo $GITHUB_WORKSPACE
 
-    - name: use node.js
+    - name: setup node
       uses: actions/setup-node@v3
       with:
         node-version: '20.x'
+        cache: npm
 
     - name: install dependencies
       working-directory: local-app/express-backend
