@@ -22,9 +22,19 @@ jobs:
     steps:
     # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
-    - uses: actions/checkout@v4
-      with:
-          ref: main
+
+    - name: check out repository code
+      uses: actions/checkout@v4
+    - run: echo "${{ github.repository }} has been cloned to runner"
+    - run: echo "workflow ready to test code on hte runner"
+    - name: list files in repo
+      run: |
+        ls ${{ github.workspace }}
+    - run: echo "job status is ${{ job.status }}"
+
+    # - uses: actions/checkout@v4
+    #   with:
+    #       ref: main
 
       # - run: docker ps
 
