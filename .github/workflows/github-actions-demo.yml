@@ -20,7 +20,7 @@ jobs:
         volumes:
           - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
-    - run: sudo chown -R $USER local-app/mysql-db/init.sql
+    # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
     - uses: actions/checkout@v3
 
@@ -53,6 +53,7 @@ jobs:
       working-directory: local-app/express-backend
       run: npm run test
 
+    # Move down
     - name: kill backend server
       if: always()
       run: |
@@ -63,6 +64,56 @@ jobs:
         fi
 
     - run: echo "job status is ${{ job.status }}"
+
+
+
+    #frontend unittests
+    # - name: install frontend unittest dependencies
+    #   working-directory: local-app/react-frontend/
+    #   run: npm install
+    # - name: run frontend unit tests
+    #   working-directory: local-app/react-frontend/
+    #   run: npm run test
+
+    
+    # run API tests
+    # - name: activate venv API integration tests
+    #   working-directory: test-automation-training/API-testing/API-testing-python-requests/
+    #   run: venv\Scripts\activate
+    # - name: install dependencies API integration tests
+    #   working-directory: test-automation-training/API-testing/API-testing-python-requests/
+    #   run: pip install requirements.txt
+    # - name: run API integration tests
+    #   working-directory: test-automation-training/API-testing/API-testing-python-requests/
+    #   run: python3 API_testing.py
+    # - name: deactivate venv
+    #   working-directory: test-automation-training/API-testing/API-testing-pythong-requests/
+    #   run: deactivate
+
+
+    # start frontend
+    # - name: install frontend deps
+    #   working-directory: local-app/react-frontend/
+    #   run: npm install
+    # - name: run frontend
+    #   working-directory: local-app/react-frontend/
+    #   run: npm run start &
+    
+    #save frontend PID
+
+    
+
+    # run E2E integration tests
+    # - name: install E2E integration tests dependencies
+    #   working-directory: test-automation-training/E2E-test-with-playwright/
+    #   run: npm install
+    # - name: execute E2E tests
+    #   working-directory: test-automation-training/E2E-test-with-playwright/
+    #   run: |
+    #     npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts 
+      #what are the exact tests I can run here?
+    
+
 
 
 

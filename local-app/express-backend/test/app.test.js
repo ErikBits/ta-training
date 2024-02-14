@@ -5,6 +5,7 @@ const assert = require('assert');
 const request = supertest(app);
 
 //NOTE: not using assertion library as I cant get it to work.
+// TODO: Mock mysql server
 
 describe('Product endpoints', () => {
     it('Should return proper products and status 200 when accessings all products endpoint', async () => {
