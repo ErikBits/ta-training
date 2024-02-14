@@ -22,7 +22,7 @@ jobs:
     steps:
     # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
-    - uses: actions/checkout@v4
+    # - uses: actions/checkout@v4
 
     - name: check init.sql execution
       run: docker exec -i mysql ls /docker-entrypoint-initdb.sql
