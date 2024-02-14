@@ -22,15 +22,16 @@ jobs:
     steps:
     # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
-    # - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
       # - run: docker ps
 
     # - name: check init.sql execution
     #   run: docker exec -i mysql-container ls /docker-entrypoint-initdb.sql
 
-    # - name: schow current directory
-    #   run: echo $GITHUB_WORKSPACE
+    - name: schow current directory
+      run: echo $GITHUB_WORKSPACE
+
     - name: use node.js
       uses: actions/setup-node@v3
       with:
