@@ -91,8 +91,7 @@ jobs:
         
       - name: identify PID for frontend server
         run: |
-          frontend_pid=${pgrep -f 'npm run'}
-          echo "frontend PID, $frontend_pid"
+          frontend_pid=${pgrep -f 'npm run start'}; echo "frontend PID, $frontend_pid"
       
       - name: kill frontend server
         if: always()
