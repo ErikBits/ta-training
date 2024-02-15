@@ -44,27 +44,19 @@ jobs:
         run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 API_testing.py
 
 
-    # start frontend
-    # - name: install frontend deps
-    #   working-directory: local-app/react-frontend/
-    #   run: npm install
-    # - name: run frontend
-    #   working-directory: local-app/react-frontend/
-    #   run: npm run start &
-    
-    #save frontend PID
+      # start frontend
+      - name: run frontend
+        run: cd local-app/react-frontend/ && npm run start &
 
     
 
-    # run E2E integration tests
-    # - name: install E2E integration tests dependencies
-    #   working-directory: test-automation-training/E2E-test-with-playwright/
-    #   run: npm install
-    # - name: execute E2E tests
-    #   working-directory: test-automation-training/E2E-test-with-playwright/
-    #   run: |
-    #     npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts 
-      #what are the exact tests I can run here?
+      # run E2E integration tests
+      - name: install E2E integration tests dependencies
+        run: cd test-automation-training/E2E-test-with-playwright/ && npm install
+      - name: execute E2E tests - only the ones actually working
+        run: |
+          cd test-automation-training/E2E-test-with-playwright/
+          npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts
     
 
 
@@ -73,13 +65,8 @@ jobs:
       - name: identify PID for backend server
         run: |
           server_pid=$(pgrep -f 'node server.js')
-          echo "server PID: $server_pid"
+          echo "server PID, $server_pid"
 
-      # - name: run backend tests
-      #   working-directory: ./local-app/express-backend
-      #   run: npm run test
-
-      # Move down
       - name: kill backend server
         if: always()
         run: |
@@ -88,44 +75,20 @@ jobs:
           else
             echo "server pid not found, may already have exited"
           fi
-
-
+        
+      - name: identify PID for frontend server
+        run: |
+          frontend_pid=${pgrep -f 'npm run start'}
+          echo "frontend PID, $frontend_pid"
+      
+      - name: kill frontend server
+        if: always()
+        run: |
+          if [[ -n "$frontend_pid" ]]; then
+            kill -2 "$frontend_pid"
+          else
+            echo "server pid not found, may already have exited"
+          fi 
           
       - name: shutdown container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
-
-
-
-
-      # - name: list files in repo
-      #   run: | 
-      #     ls ${{ github.workspace }}
-      # - run: pwd
-      # # - name: install dependencies backend/
-      #   # run: cd local-app/express-backend/
-      # - name: install dependencies
-      #   run: npm install
-      #   working-directory: local-app/express-backend/
-      # - name: run server
-      #   run: node server.js
-      #   working-directory: local-app/express-backend/
-      # - name: execute tests
-      #   run: npm run test
-      #   working-directory: local-app/express-backend/
-
-
-
-
-
-  # explore-github-actions:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - run: 
-  #     - name: check out repository code
-  #       uses: actions/checkout@v4
-  #     - run: echo "${{ github.repository }} has been cloned to runner"
-  #     - run: echo "workflow ready to test code on hte runner"
-  #     - name: list files in repo
-  #       run: |
-  #         ls ${{ github.workspace }}
-  #     - run: echo "job status is ${{ job.status }}"
