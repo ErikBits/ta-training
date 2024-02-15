@@ -22,8 +22,8 @@ jobs:
     steps:
     # - run: chmod -R 777 /home/runner/work/ta-training/ta-training
     # - uses: actions/checkout@v4
-      - run: cp -r . /app
-      - run: ls
+      - run: sudo cp -r . /app
+      - run: ls app
 
     # - name: Install node.js deps
     #   run: cd local-app/express-backend && npm install
