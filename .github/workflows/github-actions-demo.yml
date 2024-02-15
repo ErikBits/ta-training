@@ -11,6 +11,8 @@ jobs:
       - name: start up docker container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
 
+
+      # RUN BACKEND UNITTESTS
       - name: Install backend deps
         run: cd local-app/express-backend && npm install
       
@@ -21,7 +23,7 @@ jobs:
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
 
       
-      
+      # RUN FRONTEND UNITTESTS
       - name: install frontend deps
         run: cd local-app/react-frontend && npm install
       
@@ -29,56 +31,29 @@ jobs:
         run: cd local-app/react-frontend && npm run test
 
 
-            # - name: run backend server in background
-      #   run: cd local-app/express-backend && node server.js &
 
-    # - run: ps
+      - name: run backend server in background
+        run: cd local-app/express-backend && node server.js &
 
-    # - name: identify PID for backend server
-    #   run: |
-    #     server_pid=$(pgrep -f 'node server.js')
-    #     echo "server PID: $server_pid"
 
-    # - name: run backend tests
-    #   working-directory: ./local-app/express-backend
-    #   run: npm run test
-
-    # # Move down
-    # - name: kill backend server
-    #   if: always()
-    #   run: |
-    #     if [[ -n "$server_pid" ]]; then
-    #       kill -2 "$server_pid"
-    #     else
-    #       echo "server pid not found, may already have exited"
-    #     fi
 
     # - run: echo "job status is ${{ job.status }}"
 
 
-
-    #frontend unittests
-    # - name: install frontend unittest dependencies
-    #   working-directory: local-app/react-frontend/
-    #   run: npm install
-    # - name: run frontend unit tests
-    #   working-directory: local-app/react-frontend/
-    #   run: npm run test
-
     
-    # run API tests
-    # - name: activate venv API integration tests
-    #   working-directory: test-automation-training/API-testing/API-testing-python-requests/
-    #   run: venv\Scripts\activate
-    # - name: install dependencies API integration tests
-    #   working-directory: test-automation-training/API-testing/API-testing-python-requests/
-    #   run: pip install requirements.txt
-    # - name: run API integration tests
-    #   working-directory: test-automation-training/API-testing/API-testing-python-requests/
-    #   run: python3 API_testing.py
-    # - name: deactivate venv
-    #   working-directory: test-automation-training/API-testing/API-testing-pythong-requests/
-    #   run: deactivate
+      # run API tests
+      - name: activate venv API integration tests
+        working-directory: test-automation-training/API-testing/API-testing-python-requests/
+        run: venv\Scripts\activate
+      - name: install dependencies API integration tests
+        working-directory: test-automation-training/API-testing/API-testing-python-requests/
+        run: pip install requirements.txt
+      - name: run API integration tests
+        working-directory: test-automation-training/API-testing/API-testing-python-requests/
+        run: python3 API_testing.py
+      - name: deactivate venv
+        working-directory: test-automation-training/API-testing/API-testing-pythong-requests/
+        run: deactivate
 
 
     # start frontend
@@ -105,7 +80,26 @@ jobs:
     
 
 
+      - run: ps
 
+      - name: identify PID for backend server
+        run: |
+          server_pid=$(pgrep -f 'node server.js')
+          echo "server PID: $server_pid"
+
+      - name: run backend tests
+        working-directory: ./local-app/express-backend
+        run: npm run test
+
+      # Move down
+      - name: kill backend server
+        if: always()
+        run: |
+          if [[ -n "$server_pid" ]]; then
+            kill -2 "$server_pid"
+          else
+            echo "server pid not found, may already have exited"
+          fi
 
 
 
