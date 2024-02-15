@@ -18,7 +18,7 @@ jobs:
         # Before continuing, verify the mysql container is reachable from the ubuntu host
         # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         volumes:
-          - ${{ github.workspace }}/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+          - $GITHUB_WORKSPACE/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
     # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
@@ -54,11 +54,11 @@ jobs:
         cache: npm
 
     - name: install dependencies
-      working-directory: ${{ github.workspace }}/local-app/express-backend
+      working-directory: $GITHUB_WORKSPACE/local-app/express-backend
       run: npm install
 
     - name: run backend server in background
-      working-directory: ${{ github.workspace }}/local-app/express-backend
+      working-directory: $GITHUB_WORKSPACE/local-app/express-backend
       run: node server.js &
 
     - run: ps
@@ -69,7 +69,7 @@ jobs:
         echo "server PID: $server_pid"
 
     - name: run backend tests
-      working-directory: ${{ github.workspace }}/local-app/express-backend
+      working-directory: $GITHUB_WORKSPACE/local-app/express-backend
       run: npm run test
 
     # Move down
