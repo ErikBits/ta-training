@@ -12,24 +12,20 @@ jobs:
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
 
 
+      # RUN FRONTEND UNITTESTS
+      - name: install frontend deps
+        run: cd local-app/react-frontend && npm install
+    
+      - name: run frontend tests
+        run: cd local-app/react-frontend && npm run test
+      
+
       # RUN BACKEND UNITTESTS
       - name: Install backend deps
         run: cd local-app/express-backend && npm install
       
       - name: run backend tests
         run: cd local-app/express-backend && npm run test
-      
-      - name: shutdown container
-        run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
-
-      
-      # RUN FRONTEND UNITTESTS
-      - name: install frontend deps
-        run: cd local-app/react-frontend && npm install
-      
-      - name: run frontend tests
-        run: cd local-app/react-frontend && npm run test
-
 
 
       - name: run backend server in background
@@ -92,6 +88,11 @@ jobs:
           else
             echo "server pid not found, may already have exited"
           fi
+
+
+          
+      - name: shutdown container
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
 
 
 
