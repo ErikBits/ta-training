@@ -4,41 +4,42 @@ on: [push]
 jobs:
   run-backend-unit-tests:
     runs-on: ubuntu-latest
-    services: 
-      mysql-container:
-        image: mysql:latest
-        env:
-          MYSQL_DATABASE: ta_test_db
-          MYSQL_USER: testuser
-          MYSQL_PASSWORD: testpw
-          MYSQL_ROOT_PASSWORD: rootpw
-          MYSQL_PORT: 3306
-        ports:
-          - 3306:3306
-        # Before continuing, verify the mysql container is reachable from the ubuntu host
-        # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-        volumes:
-          - ${{ github.workspace }}/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    # services: 
+    #   mysql-container:
+    #     image: mysql:latest
+    #     env:
+    #       MYSQL_DATABASE: ta_test_db
+    #       MYSQL_USER: testuser
+    #       MYSQL_PASSWORD: testpw
+    #       MYSQL_ROOT_PASSWORD: rootpw
+    #       MYSQL_PORT: 3306
+    #     ports:
+    #       - 3306:3306
+    #     # Before continuing, verify the mysql container is reachable from the ubuntu host
+    #     # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    #     volumes:
+    #       - ${{ github.workspace }}/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
       - name: check out repository code
         uses: actions/checkout@v4
-      - name: list files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: ls ${{ github.workspace }}/local-app
+
+      ## Volume stuff not available until after checkout, so starting it as a service is not gonna work
+      - name: start up docker container
+        # uses: docker
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
     # - run: chmod -R 777 /home/runner/work/ta-training/ta-training
     # - uses: actions/checkout@v4
       # - run: sudo cp -r . /app
       # - run: ls app
 
-    # - name: Install node.js deps
-    #   run: cd local-app/express-backend && npm install
-    
-    # - name: run backend server in background
-    #   run: cd local-app/express-backend && node server.js &
-    
-    # - name: run backend tests
-    #   run: cd local-app/express-backend && npm run test
+      - name: Install node.js deps
+        run: cd local-app/express-backend && npm install
+      
+      - name: run backend server in background
+        run: cd local-app/express-backend && node server.js &
+      
+      - name: run backend tests
+        run: cd local-app/express-backend && npm run test
 
     # - run: echo "${{ github.repository }} has been cloned to runner"
     # - run: echo "workflow ready to test code on hte runner"
