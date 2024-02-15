@@ -50,7 +50,9 @@ jobs:
 
     
       - run: cd test-automation-training/E2E-test-with-playwright && npm install
+      - run: sudo apt-get update
       - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
+      - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install-deps
       - run: cd test-automation-training/E2E-test-with-playwright && npm install
 
       # run E2E integration tests
