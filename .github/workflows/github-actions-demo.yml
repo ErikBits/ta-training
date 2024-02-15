@@ -18,7 +18,7 @@ jobs:
         # Before continuing, verify the mysql container is reachable from the ubuntu host
         # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         volumes:
-          - $GITHUB_WORKSPACE/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+          - ${{ github.workspace }}/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
     # - run: sudo chown -R $USER local-app/mysql-db/init.sql
 
