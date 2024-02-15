@@ -43,7 +43,7 @@ jobs:
     
       # run API tests - IDC venv in pipeline
       - name: install dependencies API integration tests
-        run: cd test-automation-training/API-testing/API-testing-python-requests/ && pip install requirements.txt
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && pip install -r requirements.txt
       - name: run API integration tests
         run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 API_testing.py
 
