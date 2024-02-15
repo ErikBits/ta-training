@@ -17,8 +17,8 @@ jobs:
           - 3306:3306
         # Before continuing, verify the mysql container is reachable from the ubuntu host
         # options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-        # volumes:
-        #   - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
+        volumes:
+          - ${{ github.workspace }}/local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
       - name: check out repository code
         uses: actions/checkout@v4
