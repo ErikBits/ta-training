@@ -49,14 +49,17 @@ jobs:
         run: cd local-app/react-frontend/ && npm run start &
 
     
+      - run: cd test-automation-training/E2E-test-with-playwright && npm install
+      - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
+      - run: cd test-automation-training/E2E-test-with-playwright && npm install
 
       # run E2E integration tests
-      - name: install playwright deps
-        run: |
-          cd test-automation-training/E2E-test-with-playwright
-          npm install
-          npx playwright install
-          npm install
+      # - name: install playwright deps
+      #   run: |
+      #     cd test-automation-training/E2E-test-with-playwright
+      #     npm install
+      #     npx playwright install
+      #     npm install
 
       # - name: install E2E integration tests dependencies
       #   run: cd test-automation-training/E2E-test-with-playwright/ && npm install
