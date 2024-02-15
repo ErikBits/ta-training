@@ -42,6 +42,8 @@ jobs:
 
     
       # run API tests
+      - name: create venv
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 -m venv venv
       - name: activate venv API integration tests
         working-directory: test-automation-training/API-testing/API-testing-python-requests/
         run: venv\Scripts\activate
