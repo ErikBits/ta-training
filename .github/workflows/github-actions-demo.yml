@@ -41,21 +41,11 @@ jobs:
 
 
     
-      # run API tests
-      - name: create venv
-        run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 -m venv venv
-      - name: activate venv API integration tests
-        working-directory: test-automation-training/API-testing/API-testing-python-requests/
-        run: venv\Scripts\activate
+      # run API tests - IDC venv in pipeline
       - name: install dependencies API integration tests
-        working-directory: test-automation-training/API-testing/API-testing-python-requests/
-        run: pip install requirements.txt
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && pip install requirements.txt
       - name: run API integration tests
-        working-directory: test-automation-training/API-testing/API-testing-python-requests/
-        run: python3 API_testing.py
-      - name: deactivate venv
-        working-directory: test-automation-training/API-testing/API-testing-pythong-requests/
-        run: deactivate
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 API_testing.py
 
 
     # start frontend
