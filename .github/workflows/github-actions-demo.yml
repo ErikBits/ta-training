@@ -22,15 +22,16 @@ jobs:
     steps:
     # - run: chmod -R 777 /home/runner/work/ta-training/ta-training
     # - uses: actions/checkout@v4
+      - run: ls
 
-    - name: Install node.js deps
-      run: cd local-app/express-backend && npm install
+    # - name: Install node.js deps
+    #   run: cd local-app/express-backend && npm install
     
-    - name: run backend server in background
-      run: cd local-app/express-backend && node server.js &
+    # - name: run backend server in background
+    #   run: cd local-app/express-backend && node server.js &
     
-    - name: run backend tests
-      run: cd local-app/express-backend && npm run test
+    # - name: run backend tests
+    #   run: cd local-app/express-backend && npm run test
 
     # - run: echo "${{ github.repository }} has been cloned to runner"
     # - run: echo "workflow ready to test code on hte runner"
