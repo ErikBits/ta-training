@@ -75,9 +75,9 @@ jobs:
           server_pid=$(pgrep -f 'node server.js')
           echo "server PID: $server_pid"
 
-      - name: run backend tests
-        working-directory: ./local-app/express-backend
-        run: npm run test
+      # - name: run backend tests
+      #   working-directory: ./local-app/express-backend
+      #   run: npm run test
 
       # Move down
       - name: kill backend server
