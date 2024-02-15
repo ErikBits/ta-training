@@ -1,6 +1,7 @@
 const supertest = require('supertest');
-const app = require('../server.js');
+const { app, shutdownServer } = require('../server.js');
 const assert = require('assert');
+// const { shutdownServer } = require('../server/shutdownServer')
 
 const request = supertest(app);
 
@@ -130,4 +131,8 @@ describe('Login Functionality',  () => {
         const body = await res.body;
         assert(body['token'] == 'token12');
     });
+});
+
+after(() => {
+    shutdownServer();
 });

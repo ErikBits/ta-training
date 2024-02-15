@@ -14,14 +14,15 @@ jobs:
       - name: Install node.js deps
         run: cd local-app/express-backend && npm install
       
-      # - name: run backend server in background
-      #   run: cd local-app/express-backend && node server.js &
-      
       - name: run backend tests
         run: cd local-app/express-backend && npm run test
       
       - name: shutdown container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
+
+
+            # - name: run backend server in background
+      #   run: cd local-app/express-backend && node server.js &
 
 
 

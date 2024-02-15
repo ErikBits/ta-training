@@ -223,8 +223,32 @@ app.post('/api/calculate-score', (req, res) => {
 
 
 //start the server
-app.listen(port, () => {
+// app.listen(port, () => {
+//     console.log(`Server is running on port ${port}`);
+// });
+
+const server = app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
 
-module.exports = app;
+const shutdownServer = () => {
+    console.log('Shutting down server...');
+    server.close(() => {
+        console.log('Server has been shut down');
+        process.exit(0);
+    });
+};
+
+// Handle SIGNINT signal (CTRL+C)
+process.on('SIGINT', () => {
+    shutdownServer();
+});
+
+// handle SIGTERM signal (terminaltion signal)
+process.on('SIGTERM', () => {
+    shutdownServer();
+});
+
+// module.exports = app;
+
+module.exports = {  app, shutdownServer };
