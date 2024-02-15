@@ -24,6 +24,8 @@ jobs:
 
     - name: Check workspace path
       run: echo "Current workspace $GITHUB_WORKSPACE"
+    
+    - run: ls $GITHUB_WORKSPACE
 
     # - name: check out repository code
     #   uses: actions/checkout@v4
