@@ -53,6 +53,8 @@ jobs:
       # run E2E integration tests
       - name: install E2E integration tests dependencies
         run: cd test-automation-training/E2E-test-with-playwright/ && npm install
+      - name: install playwright deps
+        run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
       - name: execute E2E tests - only the ones actually working
         run: |
           cd test-automation-training/E2E-test-with-playwright/
