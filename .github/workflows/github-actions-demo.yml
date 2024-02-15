@@ -20,21 +20,8 @@ jobs:
         volumes:
           - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
     steps:
-    # - run: sudo chown -R $USER local-app/mysql-db/init.sql
-
-    # - name: Check workspace path
-    #   run: echo "Current workspace $GITHUB_WORKSPACE"
-    
-    # - run: ls $GITHUB_WORKSPACE
-    # - run: ls
-
-    # - name: check out repository code
-    #   uses: actions/checkout@v4
-      # with:
-      #   ref: main
-      #   path: ..
-    
-    - uses: actions/checkout@v3
+    # - run: chmod -R 777 /home/runner/work/ta-training/ta-training
+    # - uses: actions/checkout@v4
 
     - name: Install node.js deps
       run: cd local-app/express-backend && npm install
