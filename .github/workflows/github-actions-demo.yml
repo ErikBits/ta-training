@@ -33,6 +33,17 @@ jobs:
       # with:
       #   ref: main
       #   path: ..
+    
+    - uses: actions/checkout@v3
+
+    - name: Install node.js deps
+      run: cd local-app/express-backend && npm install
+    
+    - name: run backend server in background
+      run: cd local-app/express-backend && node server.js &
+    
+    - name: run backend tests
+      run: cd local-app/express-backend && npm run test
 
     # - run: echo "${{ github.repository }} has been cloned to runner"
     # - run: echo "workflow ready to test code on hte runner"
@@ -40,41 +51,44 @@ jobs:
     #   run: |
     #     ls ${{ github.workspace }}
     # - run: echo "job status is ${{ job.status }}"
+    # - name: clone repo
+    #   run: |
+    #     git clone https://github.com/luukschn/ta-training
 
-    - name: setup node
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20.x'
-        cache: npm
+    # - name: setup node
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: '20.x'
+    #     cache: npm
 
-    - name: install dependencies
-      working-directory: ./local-app/express-backend
-      run: npm install
+    # - name: install dependencies
+    #   working-directory: ./local-app/express-backend
+    #   run: npm install
 
-    - name: run backend server in background
-      working-directory: ./local-app/express-backend
-      run: node server.js &
+    # - name: run backend server in background
+    #   working-directory: ./local-app/express-backend
+    #   run: node server.js &
 
-    - run: ps
+    # - run: ps
 
-    - name: identify PID for backend server
-      run: |
-        server_pid=$(pgrep -f 'node server.js')
-        echo "server PID: $server_pid"
+    # - name: identify PID for backend server
+    #   run: |
+    #     server_pid=$(pgrep -f 'node server.js')
+    #     echo "server PID: $server_pid"
 
-    - name: run backend tests
-      working-directory: ./local-app/express-backend
-      run: npm run test
+    # - name: run backend tests
+    #   working-directory: ./local-app/express-backend
+    #   run: npm run test
 
-    # Move down
-    - name: kill backend server
-      if: always()
-      run: |
-        if [[ -n "$server_pid" ]]; then
-          kill -2 "$server_pid"
-        else
-          echo "server pid not found, may already have exited"
-        fi
+    # # Move down
+    # - name: kill backend server
+    #   if: always()
+    #   run: |
+    #     if [[ -n "$server_pid" ]]; then
+    #       kill -2 "$server_pid"
+    #     else
+    #       echo "server pid not found, may already have exited"
+    #     fi
 
     # - run: echo "job status is ${{ job.status }}"
 
