@@ -1,18 +1,97 @@
 name: Github Actions Webshop App Demo
 run-name: ${{ github.actor }} testing github actions
 on: [push]
-jobs: 
-  explore-github-actions:
+jobs:
+  run-backend-unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "automatically triggered by ${{ github.event_name }}"
-      - run: echo "running on ${{ runner.os }}"
-      - run: echo "name of branc h is ${{ github.ref }} and repo is ${{ github.repository }}"
       - name: check out repository code
         uses: actions/checkout@v4
-      - run: echo "${{ github.repository }} has been cloned to runner"
-      - run: echo "workflow ready to test code on hte runner"
-      - name: list files in repo
+
+      - name: start up docker container
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
+
+      # RUN FRONTEND UNITTESTS
+      - name: install frontend deps
+        run: cd local-app/react-frontend && npm install
+    
+      - name: run frontend tests
+        run: cd local-app/react-frontend && npm run test
+      
+
+      # RUN BACKEND UNITTESTS
+      - name: Install backend deps
+        run: cd local-app/express-backend && npm install
+      
+      - name: run backend tests
+        run: cd local-app/express-backend && npm run test
+
+
+      - name: run backend server in background
+        run: cd local-app/express-backend && node server.js &
+
+
+
+    # - run: echo "job status is ${{ job.status }}"
+
+
+    
+      # run API tests - IDC venv in pipeline
+      - name: install dependencies API integration tests
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && pip install -r requirements.txt
+      - name: run API integration tests
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 API_testing.py
+
+
+      # start frontend
+      - name: run frontend
+        run: cd local-app/react-frontend/ && npm run start &
+
+    
+      - run: cd test-automation-training/E2E-test-with-playwright && npm install
+      - run: sudo apt-get update
+      - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
+      - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install-deps
+      - run: cd test-automation-training/E2E-test-with-playwright && npm install
+      
+
+      - name: execute E2E tests - only the ones actually working
         run: |
-          ls ${{ github.workspace }}
-      - run: echo "job status is ${{ job.status }}"
+          cd test-automation-training/E2E-test-with-playwright/
+          npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts
+    
+
+
+      - run: ps
+
+      - name: identify PID for backend server
+        run: |
+          server_pid=$(pgrep -f 'node server.js')
+          echo "server PID, $server_pid"
+
+      - name: kill backend server
+        if: always()
+        run: |
+          if [[ -n "$server_pid" ]]; then
+            kill -2 "$server_pid"
+          else
+            echo "server pid not found, may already have exited"
+          fi
+
+      - run: killall -9 node
+        
+      # - name: identify PID for frontend server
+      #   run: |
+      #     frontend_pid=${pgrep -f 'npm run start'}; echo "frontend PID, $frontend_pid"
+      
+      # - name: kill frontend server
+      #   if: always()
+      #   run: |
+      #     if [[ -n "$frontend_pid" ]]; then
+      #       kill -2 "$frontend_pid"
+      #     else
+      #       echo "server pid not found, may already have exited"
+      #     fi 
+          
+      - name: shutdown container
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml down

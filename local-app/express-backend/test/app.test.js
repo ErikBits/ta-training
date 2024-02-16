@@ -1,10 +1,12 @@
 const supertest = require('supertest');
-const app = require('../server.js');
+const { app, shutdownServer } = require('../server.js');
 const assert = require('assert');
+// const { shutdownServer } = require('../server/shutdownServer')
 
 const request = supertest(app);
 
 //NOTE: not using assertion library as I cant get it to work.
+// TODO: Mock mysql server
 
 describe('Product endpoints', () => {
     it('Should return proper products and status 200 when accessings all products endpoint', async () => {
@@ -129,4 +131,8 @@ describe('Login Functionality',  () => {
         const body = await res.body;
         assert(body['token'] == 'token12');
     });
+});
+
+after(() => {
+    shutdownServer();
 });
