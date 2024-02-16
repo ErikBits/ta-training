@@ -11,7 +11,6 @@ jobs:
       - name: start up docker container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
 
-
       # RUN FRONTEND UNITTESTS
       - name: install frontend deps
         run: cd local-app/react-frontend && npm install
@@ -54,17 +53,7 @@ jobs:
       - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
       - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install-deps
       - run: cd test-automation-training/E2E-test-with-playwright && npm install
-
-      # run E2E integration tests
-      # - name: install playwright deps
-      #   run: |
-      #     cd test-automation-training/E2E-test-with-playwright
-      #     npm install
-      #     npx playwright install
-      #     npm install
-
-      # - name: install E2E integration tests dependencies
-      #   run: cd test-automation-training/E2E-test-with-playwright/ && npm install
+      
 
       - name: execute E2E tests - only the ones actually working
         run: |
@@ -88,19 +77,21 @@ jobs:
           else
             echo "server pid not found, may already have exited"
           fi
+
+      - run: killall -9 node
         
-      - name: identify PID for frontend server
-        run: |
-          frontend_pid=${pgrep -f 'npm run start'}; echo "frontend PID, $frontend_pid"
+      # - name: identify PID for frontend server
+      #   run: |
+      #     frontend_pid=${pgrep -f 'npm run start'}; echo "frontend PID, $frontend_pid"
       
-      - name: kill frontend server
-        if: always()
-        run: |
-          if [[ -n "$frontend_pid" ]]; then
-            kill -2 "$frontend_pid"
-          else
-            echo "server pid not found, may already have exited"
-          fi 
+      # - name: kill frontend server
+      #   if: always()
+      #   run: |
+      #     if [[ -n "$frontend_pid" ]]; then
+      #       kill -2 "$frontend_pid"
+      #     else
+      #       echo "server pid not found, may already have exited"
+      #     fi 
           
       - name: shutdown container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
