@@ -31,10 +31,6 @@ jobs:
         run: cd local-app/express-backend && node server.js &
 
 
-
-    # - run: echo "job status is ${{ job.status }}"
-
-
     
       # run API tests - IDC venv in pipeline
       - name: install dependencies API integration tests
@@ -60,7 +56,6 @@ jobs:
           cd test-automation-training/E2E-test-with-playwright/
           npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts
     
-
 
       - run: ps
 
