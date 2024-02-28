@@ -1,64 +1,62 @@
-name: Github Actions Webshop App Demo
-run-name: ${{ github.actor }} testing github actions
-on: [push]
-# on push for a branch - execute unittests
-# on merge with main - execute all tests, potentially deploy docker container?
-# separate all on different files?
+name: quality gate for pull requests and deployment
+run-name: ${{ github.actor }} pulling to main and deploying
+on:
+  pull_request:
+    branches: [ main ]
+  pull_request_target:
+    branches: [ main ]
 jobs:
-  run-backend-unit-tests:
+  pipeline:
     runs-on: ubuntu-latest
     steps:
       - name: check out repository code
         uses: actions/checkout@v4
 
+
       - name: start up docker container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
 
-      # RUN FRONTEND UNITTESTS
-      - name: install frontend deps
-        run: cd local-app/react-frontend && npm install
-    
-      - name: run frontend tests
-        run: cd local-app/react-frontend && npm run test
-      
 
-      # RUN BACKEND UNITTESTS
       - name: Install backend deps
         run: cd local-app/express-backend && npm install
-      
-      - name: run backend tests
-        run: cd local-app/express-backend && npm run test
-
 
       - name: run backend server in background
         run: cd local-app/express-backend && node server.js &
 
 
-    
-      # run API tests - IDC venv in pipeline
+
+
+
       - name: install dependencies API integration tests
         run: cd test-automation-training/API-testing/API-testing-python-requests/ && pip install -r requirements.txt
       - name: run API integration tests
         run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 API_testing.py
 
 
-      # start frontend
+
+      - name: install frontend deps
+        run: cd local-app/react-frontend && npm install
+
+
       - name: run frontend
         run: cd local-app/react-frontend/ && npm run start &
 
-    
+
+
       - run: cd test-automation-training/E2E-test-with-playwright && npm install
       - run: sudo apt-get update
       - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
       - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install-deps
       - run: cd test-automation-training/E2E-test-with-playwright && npm install
-      
+
+
 
       - name: execute E2E tests - only the ones actually working
         run: |
           cd test-automation-training/E2E-test-with-playwright/
           npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts
-    
+
+
 
       - run: ps
 
@@ -66,7 +64,7 @@ jobs:
         run: |
           server_pid=$(pgrep -f 'node server.js')
           echo "server PID, $server_pid"
-
+    
       - name: kill backend server
         if: always()
         run: |
@@ -77,19 +75,13 @@ jobs:
           fi
 
       - run: killall -9 node
-        
-      # - name: identify PID for frontend server
-      #   run: |
-      #     frontend_pid=${pgrep -f 'npm run start'}; echo "frontend PID, $frontend_pid"
-      
-      # - name: kill frontend server
-      #   if: always()
-      #   run: |
-      #     if [[ -n "$frontend_pid" ]]; then
-      #       kill -2 "$frontend_pid"
-      #     else
-      #       echo "server pid not found, may already have exited"
-      #     fi 
           
       - name: shutdown container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
+
+
+      - name: build frontend image
+        run: cd local-app/react-frontend/ && docker build -t frontend-image:0.${{ github.run_number }} .
+
+      - name: build backend image
+        run: cd local-app/express-backend/ && docker build -t backend-image:0.${{ github.run_number }} .

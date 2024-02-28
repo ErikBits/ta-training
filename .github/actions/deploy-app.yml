@@ -1,0 +1,15 @@
+#deployment now just merging to main, can probably push the images somewhere
+# should maybe run two servers on my home server
+# run staging server one one, push the images to the staging server
+# run tests on it and if success build to prod
+
+steps:
+  # need to find a way to dynamically name the image per push and integrate this into the docker-compose files and such
+
+  - name: build frontend image
+    run: cd local-app/react-frontend/ && docker build -t frontend-image:0.${{ github.run_number }} .
+
+  - name: build backend image
+    run: cd local-app/express-backend/ && docker build -t backend-image:0.${{ github.run_number }} .
+  
+  # can I scp to home server? how can i push to it
