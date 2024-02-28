@@ -1,0 +1,19 @@
+name: quality gate for pull requests and deployment
+run-name: ${{ github.actor }} pulling to main and deploying
+on:
+  pull_request:
+    branches: [ main ]
+  pull_request_target:
+    branches: [ main ]
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run unittests
+        uses: ./.github/actions/run-unit-tests.yml
+            
+      - name: run integration tests
+        uses: ./.github/actions/run-integration-tests.yml
+
+      - name: deploy app
+        uses: ./.github/actions/deploy-app.yml
