@@ -78,3 +78,10 @@ jobs:
           
       - name: shutdown container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
+
+
+      - name: build frontend image
+        run: cd local-app/react-frontend/ && docker build -t frontend-image:0.${{ github.run_number }} .
+
+      - name: build backend image
+        run: cd local-app/express-backend/ && docker build -t backend-image:0.${{ github.run_number }} .
