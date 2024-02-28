@@ -1,9 +1,7 @@
 #NOTE: not sure if these steps will require additional context or they can jsut be run off of my base workflow
 steps:
-  - name: check out repository code
-    uses: actions/checkout@v4
-
-
+  # - name: check out repository code
+  #   uses: actions/checkout@v4
 
   # RUN FRONTEND UNITTESTS
   - name: install frontend deps

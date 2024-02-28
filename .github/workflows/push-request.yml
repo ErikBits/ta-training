@@ -5,6 +5,10 @@ jobs:
   pipeline:
     runs-on: ubuntu-latest
     steps:
+
+      - name: check out repository code
+        uses: actions/checkout@v4
+
       - name: run unittests
         uses: ./.github/actions/run-unit-tests.yml
     
