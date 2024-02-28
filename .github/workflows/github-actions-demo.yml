@@ -77,19 +77,19 @@ jobs:
           fi
 
       - run: killall -9 node
-        
-      # - name: identify PID for frontend server
-      #   run: |
-      #     frontend_pid=${pgrep -f 'npm run start'}; echo "frontend PID, $frontend_pid"
-      
-      # - name: kill frontend server
-      #   if: always()
-      #   run: |
-      #     if [[ -n "$frontend_pid" ]]; then
-      #       kill -2 "$frontend_pid"
-      #     else
-      #       echo "server pid not found, may already have exited"
-      #     fi 
           
       - name: shutdown container
         run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
+
+
+
+      ## BUILD STEPS
+      - name: get run number
+        id: get-run-number
+        run: echo "RUN_NUMBER=$(github.run_number)"
+
+      - name: build frontend image
+        run: cd local-app/react-frontend/ && docker build -t frontend-image:0.${{ steps.get-run-number.outputs.RUN_NUMBER }}
+
+      - name: build backend image
+        run: cd local-app/express-backend/ && docker build -t backend-image:0.${{ steps.get-run-number.outcome.RUN_NUMBER }}
