@@ -9,11 +9,72 @@ jobs:
   pipeline:
     runs-on: ubuntu-latest
     steps:
-      - name: run unittests
-        uses: ./.github/actions/run-unit-tests.yml
-            
-      - name: run integration tests
-        uses: ./.github/actions/run-integration-tests.yml
+      - name: check out repository code
+        uses: actions/checkout@v4
 
-      - name: deploy app
-        uses: ./.github/actions/deploy-app.yml
+
+      - name: start up docker container
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
+
+
+      - name: Install backend deps
+        run: cd local-app/express-backend && npm install
+
+      - name: run backend server in background
+        run: cd local-app/express-backend && node server.js &
+
+
+
+
+
+      - name: install dependencies API integration tests
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && pip install -r requirements.txt
+      - name: run API integration tests
+        run: cd test-automation-training/API-testing/API-testing-python-requests/ && python3 API_testing.py
+
+
+
+      - name: install frontend deps
+        run: cd local-app/react-frontend && npm install
+
+
+      - name: run frontend
+        run: cd local-app/react-frontend/ && npm run start &
+
+
+
+      - run: cd test-automation-training/E2E-test-with-playwright && npm install
+      - run: sudo apt-get update
+      - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install
+      - run: cd test-automation-training/E2E-test-with-playwright && npx playwright install-deps
+      - run: cd test-automation-training/E2E-test-with-playwright && npm install
+
+
+
+      - name: execute E2E tests - only the ones actually working
+        run: |
+          cd test-automation-training/E2E-test-with-playwright/
+          npx playwright test tests/6-functional_tasks/6.0-verifying_products_page.spec.ts
+
+
+
+      - run: ps
+
+      - name: identify PID for backend server
+        run: |
+          server_pid=$(pgrep -f 'node server.js')
+          echo "server PID, $server_pid"
+    
+      - name: kill backend server
+        if: always()
+        run: |
+          if [[ -n "$server_pid" ]]; then
+            kill -2 "$server_pid"
+          else
+            echo "server pid not found, may already have exited"
+          fi
+
+      - run: killall -9 node
+          
+      - name: shutdown container
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
