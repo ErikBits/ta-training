@@ -5,10 +5,35 @@ jobs:
   pipeline:
     runs-on: ubuntu-latest
     steps:
-
       - name: check out repository code
         uses: actions/checkout@v4
 
-      - name: run unittests
-        uses: ./.github/actions/run-unit-tests.yml
-    
+      # - name: run unittests
+      #   uses: ./.github/actions/run-unit-tests.yml
+
+
+        #NOTE: Temporary implementation until I figure out the actions
+        # RUN FRONTEND UNITTESTS
+      - name: install frontend deps
+        run: cd local-app/react-frontend && npm install
+
+      - name: run frontend tests
+        run: cd local-app/react-frontend && npm run test
+      
+
+      # RUN BACKEND UNITTESTS
+
+      - name: start up docker container
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml up -d
+        #NOTE: also hopes this remains running
+
+      - name: Install backend deps
+        run: cd local-app/express-backend && npm install
+      
+      - name: run backend tests
+        run: cd local-app/express-backend && npm run test
+
+
+      #CLEANUP -- need some sort of if statement that if its a pull request to main that it wont shut this down
+      - name: cleanup containers
+        run: docker-compose -f ./docker-compose-dev-mysql-only.yml down
