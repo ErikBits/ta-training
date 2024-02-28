@@ -87,12 +87,14 @@ jobs:
       - name: get run number
         id: get-run-number
         run: echo "RUN_NUMBER=${{ github.run_number }}"
+        # outputs:
+        #   run-number: ${{ steps.get-workflow-id.outputs.RUN_NUMBER }}
 
       # - name: build frontend image
       #   run: cd local-app/react-frontend/ && docker build -t frontend-image:0.$RUN_NUMBER .
 
       - name: build backend image
-        run: cd local-app/express-backend/ && docker build -t backend-image:0.$RUN_NUMBER .
+        run: cd local-app/express-backend/ && docker build -t backend-image:0.${{ steps.get-run-number.outputs.RUN_NUMBER }} .
 
 
       # - run: docker image inspect frontend-image:0.${{ steps.get-run-number.outputs.RUN_NUMBER }}
