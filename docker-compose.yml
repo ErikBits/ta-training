@@ -10,14 +10,14 @@ services:
       - ./local-app/mysql-db/init.sql:/docker-entrypoint-initdb.d/init.sql
   
   frontend:
-    image: frontend-image:0.5
+    image: frontend-image:0.6
     ports:
       - "3000:3000"
     depends_on:
       - backend
     
   backend:
-    image: backend-image:0.6
+    image: backend-image:0.7
     environment:
       - DB_HOST=mysql-container
     ports:

@@ -10,6 +10,9 @@ Where I think it is useful to know some stuff, I have added some tips to the bot
 ## git ##
 Ensure you have forked the repository so you can make commits and save your work along the way. For this git has to be installed.
 
+## Node ##
+Ensure that node and npm are installed: https://nodejs.org/en/download
+
 ## installing dependencies ## 
 run `npx playwright install` to install latest depedencies before running. This will automatically install dependencies based on the package.json.
 
